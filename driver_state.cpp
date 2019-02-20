@@ -43,7 +43,7 @@ void initialize_render(driver_state& state, int width, int height)
 void render(driver_state& state, render_type type)
 {
     std::cout<<"TODO: implement rendering."<<std::endl;
-    /*
+    
     auto *triangle = new data_geometry[3];
     auto ptr = state.vertex_data;
     data_vertex in;
@@ -74,7 +74,7 @@ void render(driver_state& state, render_type type)
     }
     
     delete [] triangle;
-     */
+    
 }
 
 
