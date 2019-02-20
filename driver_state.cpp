@@ -44,8 +44,8 @@ void render(driver_state& state, render_type type)
 {
     std::cout<<"TODO: implement rendering."<<std::endl;
     
-    data_geometry *triangle = new data_geometry[3];
-    float *ptr = state.vertex_data;
+    auto *triangle = new data_geometry[3];
+    auto ptr = state.vertex_data;
     data_vertex in;
     
     
