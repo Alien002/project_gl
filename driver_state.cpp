@@ -22,10 +22,10 @@ void initialize_render(driver_state& state, int width, int height)
     state.image_depth=0;
     //std::cout<<"TODO: allocate and initialize state.image_color and state.image_depth."<<std::endl;
     
-    //unsigned long total_pixel = width * height;           //check, might be okay with unsigned int (pixel)
-    state.image_color = new pixel[width * height];
+    unsigned int total_pixel = width * height;           //check, might be okay with unsigned int (pixel)
+    state.image_color = new pixel[total_pixel];
     
-    for(size_t i = 0; i < width * height; ++i){
+    for(size_t i = 0; i < total_pixel; ++i){
         
         state.image_color[i] = make_pixel(0,0,0);
         
@@ -51,6 +51,7 @@ void render(driver_state& state, render_type type)
     
     switch (type) {
         case render_type::triangle:
+            std::cout<<"render_type triangle \n";
             for(size_t i = 0, j = 0; i < state.num_vertices; ++i, ++j){
                 triangle[i].data = ptr;
                 in.data = ptr;
