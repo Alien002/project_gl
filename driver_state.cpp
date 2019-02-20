@@ -105,8 +105,8 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
     int x[3], y[3];
     
     for(unsigned int a = 0; a < 3; a++){
-        int i = (int)(state.image_width / 2.0) * (*in)[a].gl_Position[0] + ((state.image_width / 2.0) - 0.5);
-        int j = (int)(state.image_height / 2.0) * (*in)[a].gl_Position[1] + ((state.image_height / 2.0) - 0.5);
+        int i = static_cast<int>((state.image_width / 2.0) * (*in)[a].gl_Position[0] + ((state.image_width / 2.0) - 0.5));
+        int j = static_cast<int>((state.image_height / 2.0) * (*in)[a].gl_Position[1] + ((state.image_height / 2.0) - 0.5));
         x[a] = i;
         y[a] = j;
         
