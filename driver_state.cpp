@@ -74,7 +74,7 @@ void render(driver_state& state, render_type type)
             break;
     }
     
-    delete [] triangle;
+    //delete [] triangle;
     
 }
 
