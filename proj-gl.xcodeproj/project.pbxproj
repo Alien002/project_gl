@@ -1,0 +1,206 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXFileReference section */
+		40FD21EC22133BC600061393 /* .git */ = {isa = PBXFileReference; lastKnownFileType = folder; path = .git; sourceTree = "<group>"; };
+		40FD21ED22133BC600061393 /* 00.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 00.png; sourceTree = "<group>"; };
+		40FD21EE22133BC600061393 /* 00.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = 00.txt; sourceTree = "<group>"; };
+		40FD21EF22133BC600061393 /* 01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 01.png; sourceTree = "<group>"; };
+		40FD21F022133BC600061393 /* 01.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = 01.txt; sourceTree = "<group>"; };
+		40FD21F122133BC600061393 /* 02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 02.png; sourceTree = "<group>"; };
+		40FD21F222133BC600061393 /* 02.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = 02.txt; sourceTree = "<group>"; };
+		40FD21F322133BC600061393 /* 03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 03.png; sourceTree = "<group>"; };
+		40FD21F422133BC600061393 /* 03.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = 03.txt; sourceTree = "<group>"; };
+		40FD21F522133BC600061393 /* 04.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 04.png; sourceTree = "<group>"; };
+		40FD21F622133BC600061393 /* 04.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = 04.txt; sourceTree = "<group>"; };
+		40FD21F722133BC600061393 /* 05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 05.png; sourceTree = "<group>"; };
+		40FD21F822133BC600061393 /* 05.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = 05.txt; sourceTree = "<group>"; };
+		40FD21F922133BC600061393 /* 06.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 06.png; sourceTree = "<group>"; };
+		40FD21FA22133BC600061393 /* 06.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = 06.txt; sourceTree = "<group>"; };
+		40FD21FB22133BC600061393 /* 07.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 07.png; sourceTree = "<group>"; };
+		40FD21FC22133BC600061393 /* 07.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = 07.txt; sourceTree = "<group>"; };
+		40FD21FD22133BC600061393 /* 08.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 08.png; sourceTree = "<group>"; };
+		40FD21FE22133BC600061393 /* 08.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = 08.txt; sourceTree = "<group>"; };
+		40FD21FF22133BC600061393 /* 09.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 09.png; sourceTree = "<group>"; };
+		40FD220022133BC600061393 /* 09.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = 09.txt; sourceTree = "<group>"; };
+		40FD220122133BC600061393 /* 10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 10.png; sourceTree = "<group>"; };
+		40FD220222133BC600061393 /* 10.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = 10.txt; sourceTree = "<group>"; };
+		40FD220322133BC600061393 /* 11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 11.png; sourceTree = "<group>"; };
+		40FD220422133BC600061393 /* 11.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = 11.txt; sourceTree = "<group>"; };
+		40FD220522133BC600061393 /* 12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 12.png; sourceTree = "<group>"; };
+		40FD220622133BC600061393 /* 12.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = 12.txt; sourceTree = "<group>"; };
+		40FD220722133BC600061393 /* 13.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 13.png; sourceTree = "<group>"; };
+		40FD220822133BC600061393 /* 13.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = 13.txt; sourceTree = "<group>"; };
+		40FD220922133BC600061393 /* 14.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 14.png; sourceTree = "<group>"; };
+		40FD220A22133BC600061393 /* 14.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = 14.txt; sourceTree = "<group>"; };
+		40FD220B22133BC600061393 /* 15.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 15.png; sourceTree = "<group>"; };
+		40FD220C22133BC600061393 /* 15.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = 15.txt; sourceTree = "<group>"; };
+		40FD220D22133BC600061393 /* 16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 16.png; sourceTree = "<group>"; };
+		40FD220E22133BC600061393 /* 16.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = 16.txt; sourceTree = "<group>"; };
+		40FD220F22133BC600061393 /* 17.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 17.png; sourceTree = "<group>"; };
+		40FD221022133BC600061393 /* 17.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = 17.txt; sourceTree = "<group>"; };
+		40FD221122133BC600061393 /* 18.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 18.png; sourceTree = "<group>"; };
+		40FD221222133BC600061393 /* 18.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = 18.txt; sourceTree = "<group>"; };
+		40FD221322133BC600061393 /* 19.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 19.png; sourceTree = "<group>"; };
+		40FD221422133BC600061393 /* 19.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = 19.txt; sourceTree = "<group>"; };
+		40FD221522133BC600061393 /* 20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 20.png; sourceTree = "<group>"; };
+		40FD221622133BC600061393 /* 20.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = 20.txt; sourceTree = "<group>"; };
+		40FD221722133BC600061393 /* 21.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 21.png; sourceTree = "<group>"; };
+		40FD221822133BC600061393 /* 21.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = 21.txt; sourceTree = "<group>"; };
+		40FD221922133BC600061393 /* 22.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 22.png; sourceTree = "<group>"; };
+		40FD221A22133BC600061393 /* 22.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = 22.txt; sourceTree = "<group>"; };
+		40FD221B22133BC600061393 /* 23.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 23.png; sourceTree = "<group>"; };
+		40FD221C22133BC600061393 /* 23.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = 23.txt; sourceTree = "<group>"; };
+		40FD221D22133BC600061393 /* 24.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 24.png; sourceTree = "<group>"; };
+		40FD221E22133BC600061393 /* 24.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = 24.txt; sourceTree = "<group>"; };
+		40FD221F22133BC600061393 /* 25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 25.png; sourceTree = "<group>"; };
+		40FD222022133BC600061393 /* 25.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = 25.txt; sourceTree = "<group>"; };
+		40FD222122133BC600061393 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		40FD222222133BC600061393 /* common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
+		40FD222322133BC600061393 /* driver_state.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = driver_state.cpp; sourceTree = "<group>"; };
+		40FD222422133BC600061393 /* driver_state.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = driver_state.h; sourceTree = "<group>"; };
+		40FD222522133BC600061393 /* dump_png.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = dump_png.cpp; sourceTree = "<group>"; };
+		40FD222622133BC600061393 /* grading-scheme.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "grading-scheme.txt"; sourceTree = "<group>"; };
+		40FD222722133BC600061393 /* grading-script.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = "grading-script.py"; sourceTree = "<group>"; };
+		40FD222822133BC600061393 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		40FD222922133BC600061393 /* mat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mat.h; sourceTree = "<group>"; };
+		40FD222A22133BC600061393 /* parse.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = parse.cpp; sourceTree = "<group>"; };
+		40FD222E22133BC600061393 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		40FD222F22133BC600061393 /* SConstruct */ = {isa = PBXFileReference; lastKnownFileType = text; path = SConstruct; sourceTree = "<group>"; };
+		40FD223022133BC600061393 /* shaders.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = shaders.cpp; sourceTree = "<group>"; };
+		40FD223122133BC600061393 /* shaders.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = shaders.h; sourceTree = "<group>"; };
+		40FD223222133BC600061393 /* vec.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vec.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		40FD21E522133BAC00061393 = {
+			isa = PBXGroup;
+			children = (
+				40FD21EC22133BC600061393 /* .git */,
+				40FD21ED22133BC600061393 /* 00.png */,
+				40FD21EE22133BC600061393 /* 00.txt */,
+				40FD21EF22133BC600061393 /* 01.png */,
+				40FD21F022133BC600061393 /* 01.txt */,
+				40FD21F122133BC600061393 /* 02.png */,
+				40FD21F222133BC600061393 /* 02.txt */,
+				40FD21F322133BC600061393 /* 03.png */,
+				40FD21F422133BC600061393 /* 03.txt */,
+				40FD21F522133BC600061393 /* 04.png */,
+				40FD21F622133BC600061393 /* 04.txt */,
+				40FD21F722133BC600061393 /* 05.png */,
+				40FD21F822133BC600061393 /* 05.txt */,
+				40FD21F922133BC600061393 /* 06.png */,
+				40FD21FA22133BC600061393 /* 06.txt */,
+				40FD21FB22133BC600061393 /* 07.png */,
+				40FD21FC22133BC600061393 /* 07.txt */,
+				40FD21FD22133BC600061393 /* 08.png */,
+				40FD21FE22133BC600061393 /* 08.txt */,
+				40FD21FF22133BC600061393 /* 09.png */,
+				40FD220022133BC600061393 /* 09.txt */,
+				40FD220122133BC600061393 /* 10.png */,
+				40FD220222133BC600061393 /* 10.txt */,
+				40FD220322133BC600061393 /* 11.png */,
+				40FD220422133BC600061393 /* 11.txt */,
+				40FD220522133BC600061393 /* 12.png */,
+				40FD220622133BC600061393 /* 12.txt */,
+				40FD220722133BC600061393 /* 13.png */,
+				40FD220822133BC600061393 /* 13.txt */,
+				40FD220922133BC600061393 /* 14.png */,
+				40FD220A22133BC600061393 /* 14.txt */,
+				40FD220B22133BC600061393 /* 15.png */,
+				40FD220C22133BC600061393 /* 15.txt */,
+				40FD220D22133BC600061393 /* 16.png */,
+				40FD220E22133BC600061393 /* 16.txt */,
+				40FD220F22133BC600061393 /* 17.png */,
+				40FD221022133BC600061393 /* 17.txt */,
+				40FD221122133BC600061393 /* 18.png */,
+				40FD221222133BC600061393 /* 18.txt */,
+				40FD221322133BC600061393 /* 19.png */,
+				40FD221422133BC600061393 /* 19.txt */,
+				40FD221522133BC600061393 /* 20.png */,
+				40FD221622133BC600061393 /* 20.txt */,
+				40FD221722133BC600061393 /* 21.png */,
+				40FD221822133BC600061393 /* 21.txt */,
+				40FD221922133BC600061393 /* 22.png */,
+				40FD221A22133BC600061393 /* 22.txt */,
+				40FD221B22133BC600061393 /* 23.png */,
+				40FD221C22133BC600061393 /* 23.txt */,
+				40FD221D22133BC600061393 /* 24.png */,
+				40FD221E22133BC600061393 /* 24.txt */,
+				40FD221F22133BC600061393 /* 25.png */,
+				40FD222022133BC600061393 /* 25.txt */,
+				40FD222122133BC600061393 /* CMakeLists.txt */,
+				40FD222222133BC600061393 /* common.h */,
+				40FD222322133BC600061393 /* driver_state.cpp */,
+				40FD222422133BC600061393 /* driver_state.h */,
+				40FD222522133BC600061393 /* dump_png.cpp */,
+				40FD222622133BC600061393 /* grading-scheme.txt */,
+				40FD222722133BC600061393 /* grading-script.py */,
+				40FD222822133BC600061393 /* main.cpp */,
+				40FD222922133BC600061393 /* mat.h */,
+				40FD222A22133BC600061393 /* parse.cpp */,
+				40FD222E22133BC600061393 /* README.md */,
+				40FD222F22133BC600061393 /* SConstruct */,
+				40FD223022133BC600061393 /* shaders.cpp */,
+				40FD223122133BC600061393 /* shaders.h */,
+				40FD223222133BC600061393 /* vec.h */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXProject section */
+		40FD21E622133BAC00061393 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0810;
+			};
+			buildConfigurationList = 40FD21E922133BAC00061393 /* Build configuration list for PBXProject "proj-gl" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 40FD21E522133BAC00061393;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		40FD21EA22133BAC00061393 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		40FD21EB22133BAC00061393 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		40FD21E922133BAC00061393 /* Build configuration list for PBXProject "proj-gl" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				40FD21EA22133BAC00061393 /* Debug */,
+				40FD21EB22133BAC00061393 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 40FD21E622133BAC00061393 /* Project object */;
+}
