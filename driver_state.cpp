@@ -20,17 +20,7 @@ void initialize_render(driver_state& state, int width, int height)
     state.image_height=height;
     state.image_color=0;
     state.image_depth=0;
-    //std::cout<<"TODO: allocate and initialize state.image_color and state.image_depth."<<std::endl;
-    
-    unsigned int total_pixel = width * height;           //check, might be okay with unsigned int (pixel)
-    state.image_color = new pixel[total_pixel];
-    
-    for(size_t i = 0; i < total_pixel; i++){
-        
-        state.image_color[i] = make_pixel(0,0,0);
-        
-    }
-    
+    std::cout<<"TODO: allocate and initialize state.image_color and state.image_depth."<<std::endl;
 }
 
 // This function will be called to render the data that has been stored in this class.
@@ -43,39 +33,6 @@ void initialize_render(driver_state& state, int width, int height)
 void render(driver_state& state, render_type type)
 {
     std::cout<<"TODO: implement rendering."<<std::endl;
-    
-    data_geometry *triangle = new data_geometry[3];
-    float *ptr = state.vertex_data;
-    data_vertex in;
-    
-    
-    switch (type) {
-        case render_type::triangle:
-            std::cout<<"render_type triangle \n";
-            for(size_t i = 0, j = 0; i < state.num_vertices; i++, j++) {
-                triangle[i].data = ptr;
-                in.data = ptr;
-                state.vertex_shader(in, triangle[i], state.uniform_data);
-                if(j == 2){
-                    rasterize_triangle(state, (const data_geometry**) &triangle);
-                    j = 0;
-                }
-            }
-            ptr += state.floats_per_vertex;
-        
-            break;
-        case render_type::indexed:
-            break;
-        case render_type::fan:
-            break;
-        case render_type::strip:
-            break;
-        default:
-            break;
-    }
-    
-    delete [] triangle;
-    
 }
 
 
@@ -85,7 +42,7 @@ void render(driver_state& state, render_type type)
 // simply pass the call on to rasterize_triangle.
 void clip_triangle(driver_state& state, const data_geometry* in[3],int face)
 {
-    if(face == 6)
+    if(face==6)
     {
         rasterize_triangle(state, in);
         return;
@@ -99,18 +56,6 @@ void clip_triangle(driver_state& state, const data_geometry* in[3],int face)
 // fragments, calling the fragment shader, and z-buffering.
 void rasterize_triangle(driver_state& state, const data_geometry* in[3])
 {
-    //std::cout<<"TODO: implement rasterization"<<std::endl;
-    //i = w/2 * x + w/2 - 1/2
-    //j = h/2 * y + h/2 - 1/2
-    
-    for(unsigned int a = 0; a < 3; a++){
-        int i = (state.image_width / 2.0) * (*in)[a].gl_Position[0] + ((state.image_width / 2.0) - 0.5);
-        int j = (state.image_height / 2.0) * (*in)[a].gl_Position[1] + ((state.image_height / 2.0) - 0.5);
-        state.image_color[i + j * state.image_width] = make_pixel(255, 255, 255);
-        
-    }
-    
-    //std::cout<<"TODO: implement rasterization"<<std::endl;
-
+    std::cout<<"TODO: implement rasterization"<<std::endl;
 }
 
