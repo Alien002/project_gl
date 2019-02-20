@@ -22,10 +22,10 @@ void initialize_render(driver_state& state, int width, int height)
     state.image_depth=0;
     //std::cout<<"TODO: allocate and initialize state.image_color and state.image_depth."<<std::endl;
     
-    unsigned int total_pixel = width * height;           //check, might be okay with unsigned int (pixel)
-    state.image_color = new pixel[total_pixel];
+    //unsigned int total_pixel = width * height;           //check, might be okay with unsigned int (pixel)
+    state.image_color = new pixel[width * height];
     
-    for(size_t i = 0; i < total_pixel; ++i){
+    for(size_t i = 0; i < width * height; i++){
         
         state.image_color[i] = make_pixel(0,0,0);
         
@@ -57,7 +57,7 @@ void render(driver_state& state, render_type type)
                 in.data = ptr;
                 state.vertex_shader(in, triangle[i], state.uniform_data);
                 if(j == 2){
-                    rasterize_triangle(state, (const data_geometry**) &triangle);
+                    rasterize_triangle(state, (const data_geometry*) triangle);
                     j = 0;
                 }
                 ptr += state.floats_per_vertex;
@@ -107,7 +107,7 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
         state.image_color[i + j * state.image_width] = make_pixel(255,255,255);
         
     }
-    std::cout<<"TODO: implement rasterization"<<std::endl;
+    //std::cout<<"TODO: implement rasterization"<<std::endl;
 
 }
 
