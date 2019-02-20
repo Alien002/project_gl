@@ -51,7 +51,7 @@ void render(driver_state& state, render_type type)
     
     switch (type) {
         case render_type::triangle:
-            for(size_t i = 0, j = 0; i < state.num_vertices; ++i, ++j){
+            for(unsigned i = 0, j = 0; i < state.num_vertices; ++i, ++j){
                 triangle[i].data = ptr;
                 in.data = ptr;
                 state.vertex_shader(in, triangle[i], state.uniform_data);
