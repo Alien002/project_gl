@@ -116,8 +116,8 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
     
     float area_abc = (0.5f * ((x[1]*y[2] - x[2]*y[1]) - (x[0]*y[2] - x[2]*y[0]) - (x[0]*y[1] - x[1]*y[0])));
     
-    for(unsigned j = 0; j < state.image_height; ++j){
-        for(unsigned i = 0; i < state.image_width; ++i){
+    for(int j = 0; j < state.image_height; ++j){
+        for(int i = 0; i < state.image_width; ++i){
             float alpha = (0.5f * ((x[1] * y[2] - x[2] * y[1]) + (y[1] - y[2])*i + (x[2] - x[1])*j)) / area_abc;
             float beta = (0.5f * ((x[2] * y[0] - x[0] * y[2]) + (y[2] - y[0])*i + (x[0] - x[2])*j)) / area_abc;
             float gamma = (0.5f * ((x[0] * y[1] - x[1] * y[0]) + (y[0] - y[1])*i + (x[1] - x[0])*j)) / area_abc;
