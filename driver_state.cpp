@@ -56,7 +56,7 @@ void render(driver_state& state, render_type type)
                 in.data = ptr;
                 state.vertex_shader(in, triangle[i], state.uniform_data);
                 if(j == 2){
-                    rasterize_triangle(state, (const data_geometry**) &triangle);
+                    rasterize_triangle(state, triangle);
                     j = 0;
                 }
                 ptr += state.floats_per_vertex;
@@ -82,7 +82,7 @@ void render(driver_state& state, render_type type)
 // simply pass the call on to rasterize_triangle.
 void clip_triangle(driver_state& state, const data_geometry* in[3],int face)
 {
-    if(face==6)
+    if(face == 6)
     {
         rasterize_triangle(state, in);
         return;
