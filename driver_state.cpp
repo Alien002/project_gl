@@ -51,15 +51,17 @@ void render(driver_state& state, render_type type)
     switch (type) {
         case render_type::triangle:
             std::cout<<"render_type triangle \n";
-            for(size_t i = 0, j = 0; i < state.num_vertices; i++, j++){
-                triangle[i].data = ptr;
-                in.data = ptr;
-                state.vertex_shader(in, triangle[i], state.uniform_data);
-                if(j == 2){
-                    rasterize_triangle(state, (const data_geometry**) &triangle);
-                    j = 0;
+            for(size_t i = 0; i < state.num_vertices; ++i){
+                for(size_t j = 0; j < state.num_vertices; ++j){
+                    triangle[i].data = ptr;
+                    in.data = ptr;
+                    state.vertex_shader(in, triangle[i], state.uniform_data);
+                    if(j == 2){
+                        rasterize_triangle(state, (const data_geometry**) &triangle);
+                        //j = 0;
+                    }
+                    ptr += state.floats_per_vertex;
                 }
-                ptr += state.floats_per_vertex;
             }
             break;
         case render_type::indexed:
