@@ -101,14 +101,14 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
     //std::cout<<"TODO: implement rasterization"<<std::endl;
     //i = w/2 * x + w/2 - 1/2
     //j = h/2 * y + h/2 - 1/2
-    /*
+    
     for(unsigned int a = 0; a < 3; a++){
         int i = (state.image_width / 2.0) * (*in)[a].gl_Position[0] + ((state.image_width / 2.0) - 0.5);
         int j = (state.image_height / 2.0) * (*in)[a].gl_Position[1] + ((state.image_height / 2.0) - 0.5);
         state.image_color[i + j * state.image_width] = make_pixel(255, 255, 255);
         
     }
-    */
+    
     //std::cout<<"TODO: implement rasterization"<<std::endl;
 
 }
