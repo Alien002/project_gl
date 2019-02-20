@@ -44,8 +44,8 @@ void render(driver_state& state, render_type type)
 {
     std::cout<<"TODO: implement rendering."<<std::endl;
     
-    auto *triangle = new data_geometry[3];
-    auto ptr = state.vertex_data;
+    data_geometry *triangle = new data_geometry[3];
+    float *ptr = state.vertex_data;
     data_vertex in;
     
     
@@ -57,10 +57,12 @@ void render(driver_state& state, render_type type)
                     triangle[i].data = ptr;
                     in.data = ptr;
                     state.vertex_shader(in, triangle[i], state.uniform_data);
+                    /*
                     if(j == 2){
                         rasterize_triangle(state, (const data_geometry**) &triangle);
                         //j = 0;
                     }
+                     */
                 }
                 ptr += state.floats_per_vertex;
             }
