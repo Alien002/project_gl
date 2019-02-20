@@ -55,7 +55,7 @@ void render(driver_state& state, render_type type)
                 triangle[i].data = ptr;
                 in.data = ptr;
                 state.vertex_shader(in, triangle[i], state.uniform_data);
-                if(j -- 2){
+                if(j == 2){
                     rasterize_triangle(state, (const data_geometry**) &triangle);
                     j = 0;
                 }
