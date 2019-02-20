@@ -60,8 +60,8 @@ void render(driver_state& state, render_type type)
                     rasterize_triangle(state, (const data_geometry**) &triangle);
                     j = 0;
                 }
+                ptr += state.floats_per_vertex;
             }
-            ptr += state.floats_per_vertex;
         
             break;
         case render_type::indexed:
@@ -102,14 +102,31 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
     //std::cout<<"TODO: implement rasterization"<<std::endl;
     //i = w/2 * x + w/2 - 1/2
     //j = h/2 * y + h/2 - 1/2
+    int x[3], y[3];
     
     for(unsigned int a = 0; a < 3; a++){
         int i = (state.image_width / 2.0) * (*in)[a].gl_Position[0] + ((state.image_width / 2.0) - 0.5);
         int j = (state.image_height / 2.0) * (*in)[a].gl_Position[1] + ((state.image_height / 2.0) - 0.5);
+        x[a] = i;
+        y[a] = j;
+        
         state.image_color[i + j * state.image_width] = make_pixel(255, 255, 255);
         
     }
     
+    float area_abc = (0.5f * ((x[1]*y[2] - x[2]*y[1]) - (x[0]*y[2] - x[2]*y[0]) - (x[0]*y[1] - x[1]*y[0])));
+    
+    for(unsigned j = 0; j < state.image_height; ++j){
+        for(unsigned i = 0; i < state.image_width; ++i){
+            float alpha = (0.5f * ((x[1] * y[2] - x[2] * y[1]) + (y[1] - y[2])*i + (x[2] - x[1])*j)) / area_abc;
+            float beta = (0.5f * ((x[2] * y[0] - x[0] * y[2]) + (y[2] - y[0])*i + (x[0] - x[2])*j)) / area_abc;
+            float gamma = (0.5f * ((x[0] * y[1] - x[1] * y[0]) + (y[0] - y[1])*i + (x[1] - x[0])*j)) / area_abc;
+        
+            if(alpha >= 0 && beta >= 0 && gamma >= 0){
+                state.image_color[i + j * state.image_width] = make_pixel(255, 255, 255);
+            }
+        }
+    }
     //std::cout<<"TODO: implement rasterization"<<std::endl;
 
 }
