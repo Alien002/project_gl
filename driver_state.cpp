@@ -22,10 +22,10 @@ void initialize_render(driver_state& state, int width, int height)
     state.image_depth=0;
     //std::cout<<"TODO: allocate and initialize state.image_color and state.image_depth."<<std::endl;
     
-    unsigned long total_pixel = width * height;           //check, might be okay with unsigned int (pixel)
-    state.image_color = new pixel[total_pixel];
+    //unsigned long total_pixel = width * height;           //check, might be okay with unsigned int (pixel)
+    state.image_color = new pixel[width * height];
     
-    for(unsigned i = 0; i < total_pixel; ++i){
+    for(size_t i = 0; i < width * height; ++i){
         
         state.image_color[i] = make_pixel(0,0,0);
         
@@ -101,7 +101,7 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
     std::cout<<"TODO: implement rasterization"<<std::endl;
     //i = w/2 * x + w/2 - 1/2
     //j = h/2 * y + h/2 - 1/2
-    for(unsigned int a = 0; a < 3; ++a){
+    for(unsigned int a = 0; a < 3; a++){
         int i = (state.image_width / 2.0) * (*in)[a].gl_Position[0] + ((state.image_width / 2.0) - 0.5);
         int j = (state.image_height / 2.0) * (*in)[a].gl_Position[1] + ((state.image_height / 2.0) - 0.5);
         state.image_color[i + j * state.image_width] = make_pixel(255,255,255);
