@@ -59,7 +59,7 @@ void render(driver_state& state, render_type type)
                 }
                 
                 for(unsigned k = 0; k < 3; ++k){
-                    in.data = triangle[k];
+                    in.data = triangle[k].data;
                     state.vertex_shader(in, triangle[k], state.uniform_data);
                 }
                 
