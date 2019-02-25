@@ -52,15 +52,19 @@ void render(driver_state& state, render_type type)
     switch (type) {
         case render_type::triangle:
             std::cout<<"render_type triangle \n";
-            for(size_t i = 0, j = 0; i < state.num_vertices; i++, j++) {
-                triangle[i].data = ptr;
-                in.data = ptr;
-                state.vertex_shader(in, triangle[i], state.uniform_data);
-                if(j == 2){
-                    rasterize_triangle(state, (const data_geometry**) &triangle);
-                    j = 0;
+            for(size_t i = 0; i < (state.num_vertices/3); ++i) {
+                for(size_t j = 0; j < 3; ++j){
+                    triangle[j].data = ptr;
+                    in.data = ptr;
+                    ptr += state.floats_per_vertex;
                 }
-                ptr += state.floats_per_vertex;
+                
+                for(size_t k = 0; k < 3; ++k){
+                    state.vertex_shader(in, triangle[k], state.uniform_data);
+                }
+                rasterize_triangle(state, (const data_geometry**) &triangle);
+
+                
             }
         
             break;
