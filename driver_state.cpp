@@ -146,7 +146,7 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
     data_fragment fragment_data{data};
     data_output out_data;
     
-    for(int j = min_y; j < max_y; ++j){
+    for(int j = min_y; j < max_y + 1; ++j){
         for(int i = min_x; i < max_x + 1; ++i){
             float alpha = (0.5f * ((x[1] * y[2] - x[2] * y[1]) + (y[1] - y[2])*i + (x[2] - x[1])*j)) / area_abc;
             float beta = (0.5f * ((x[2] * y[0] - x[0] * y[2]) + (y[2] - y[0])*i + (x[0] - x[2])*j)) / area_abc;
