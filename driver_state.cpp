@@ -22,10 +22,10 @@ void initialize_render(driver_state& state, int width, int height)
     state.image_depth=nullptr;
     //std::cout<<"TODO: allocate and initialize state.image_color and state.image_depth."<<std::endl;
     
-    unsigned long long total_pixel = width * height;           //check, might be okay with unsigned int (pixel)
-    state.image_color = new pixel[total_pixel];
+    //unsigned long long total_pixel = width * height;           //check, might be okay with unsigned int (pixel)
+    state.image_color = new pixel[width * height];
     
-    for(size_t i = 0; i < total_pixel; ++i){
+    for(size_t i = 0; i < width * height; ++i){
         
         state.image_color[i] = make_pixel(0,0,0);
         
