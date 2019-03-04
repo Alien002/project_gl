@@ -52,6 +52,7 @@ void render(driver_state& state, render_type type)
     switch (type) {
         case render_type::triangle:
             std::cout<<"render_type triangle \n";
+            /*
             for(size_t i = 0; i < (state.num_vertices/3); ++i) {
                 for(unsigned j = 0; j < 3; ++j){
                     triangle[j].data = ptr;
@@ -65,7 +66,18 @@ void render(driver_state& state, render_type type)
                 
                 rasterize_triangle(state, (const data_geometry**) &triangle);
             }
-        
+             */
+            
+            for(int i = 0, j = 0; i < state.num_vertices; ++i, ++j){
+                triangle[j].data = ptr;
+                in.data = ptr;
+                state.vertex_shader(in, triangle[k], state.uniform_data);
+                ptr += state.floats_per_vertex;
+                if(j == 2){
+                    rasterize_triangle(state, (const data_geometry**) &triangle);
+                    j = -1;
+                }
+            }
             break;
         case render_type::indexed:
             break;
@@ -118,7 +130,7 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
         x[a] = i;
         y[a] = j;
         
-        state.image_color[i + j * state.image_width] = make_pixel(255, 255, 255);
+        //state.image_color[i + j * state.image_width] = make_pixel(255, 255, 255);
         
     }
     
