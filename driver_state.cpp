@@ -158,9 +158,9 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
             float gamma = (0.5f * ((x[0] * y[1] - x[1] * y[0]) + (y[0] - y[1])*i + (x[1] - x[0])*j)) / area_abc;
         
             if(alpha >= 0 && beta >= 0 && gamma >= 0){
-                float alpha_const = alpha;
-                 float beta_const = beta;
-                 float gamma_const = gamma;
+                const float alpha_const = alpha;
+                const float beta_const = beta;
+                const float gamma_const = gamma;
                 
                 
                 for(int k = 0; k < state.floats_per_vertex; ++k){
@@ -183,7 +183,7 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
                             gamma = gamma_const / (k_gour * (*in)[2].gl_Position[3]);
                             
                             
-                            break;
+                            //break;
                         case interp_type::noperspective:
                             
                             fragment_data.data[k] = alpha * (*in)[0].data[k]
