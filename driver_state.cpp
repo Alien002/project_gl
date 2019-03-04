@@ -158,7 +158,7 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
                     switch(state.interp_rules[k]){
                         case interp_type::flat:
                             
-                            frag_data.data[k] = (*in)[0].data[k];
+                            fragment_data.data[k] = (*in)[0].data[k];
                             
                             break;
                         case interp_type::smooth:
@@ -173,7 +173,7 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
                             
                             break;
                         case interp_type::noperspective:
-                            frag_data.data[k] = alpha*(*in)[0].data[k] + beta*(*in)[1].data[k] + gamma*(*in)[2].data[k];
+                            fragment_data.data[k] = alpha*(*in)[0].data[k] + beta*(*in)[1].data[k] + gamma*(*in)[2].data[k];
 
                             
                             break;
