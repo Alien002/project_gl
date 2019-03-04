@@ -25,7 +25,7 @@ void initialize_render(driver_state& state, int width, int height)
     unsigned int total_pixel = width * height;           //check, might be okay with unsigned int (pixel)
     state.image_color = new pixel[total_pixel];
     
-    for(size_t i = 0; i < total_pixel; i++){
+    for(size_t i = 0; i < total_pixel; ++i){
         
         state.image_color[i] = make_pixel(0,0,0);
         
@@ -42,7 +42,7 @@ void initialize_render(driver_state& state, int width, int height)
 //   render_type::strip -    The vertices are to be interpreted as a triangle strip.
 void render(driver_state& state, render_type type)
 {
-    std::cout<<"TODO: implement rendering."<<std::endl;
+    //std::cout<<"TODO: implement rendering."<<std::endl;
     
     data_geometry *triangle = new data_geometry[3];
     float *ptr = state.vertex_data;
