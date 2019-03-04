@@ -118,7 +118,7 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
         x[a] = i;
         y[a] = j;
         
-        //state.image_color[i + j * state.image_width] = make_pixel(255, 255, 255);
+        state.image_color[i + j * state.image_width] = make_pixel(255, 255, 255);
         
     }
     
