@@ -146,8 +146,8 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
     data_fragment fragment_data{data};
     data_output out_data;
     
-    for(int j = 0; j < state.image_height; ++j){
-        for(int i = 0; i < state.image_width; ++i){
+    for(int j = min_y; j < max_y; ++j){
+        for(int i = min_x; i < max_y + 1; ++i){
             float alpha = (0.5f * ((x[1] * y[2] - x[2] * y[1]) + (y[1] - y[2])*i + (x[2] - x[1])*j)) / area_abc;
             float beta = (0.5f * ((x[2] * y[0] - x[0] * y[2]) + (y[2] - y[0])*i + (x[0] - x[2])*j)) / area_abc;
             float gamma = (0.5f * ((x[0] * y[1] - x[1] * y[0]) + (y[0] - y[1])*i + (x[1] - x[0])*j)) / area_abc;
@@ -168,7 +168,9 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
                             break;
                         case interp_type::smooth:
                             
-                            k_gour = (alpha / (*in)[0].gl_Position[3]) + (beta / (*in)[1].gl_Position[3]) + (gamma / (*in)[2].gl_Position[3]);
+                            k_gour = (alpha_const / (*in)[0].gl_Position[3])
+                                        + (beta_const / (*in)[1].gl_Position[3])
+                                        + (gamma_const / (*in)[2].gl_Position[3]);
                             
                             
                             alpha = alpha_const / (k_gour * (*in)[0].gl_Position[3]);
@@ -178,8 +180,10 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
                             
                             break;
                         case interp_type::noperspective:
-                            fragment_data.data[k] = alpha*(*in)[0].data[k] + beta*(*in)[1].data[k] + gamma*(*in)[2].data[k];
-
+                            
+                            fragment_data.data[k] = alpha * (*in)[0].data[k]
+                                                    + beta * (*in)[1].data[k]
+                                                    + gamma * (*in)[2].data[k];
                             
                             break;
                         default:
