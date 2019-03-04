@@ -71,7 +71,7 @@ void render(driver_state& state, render_type type)
             for(int i = 0, j = 0; i < state.num_vertices; ++i, ++j){
                 triangle[j].data = ptr;
                 in.data = ptr;
-                state.vertex_shader(in, triangle[k], state.uniform_data);
+                state.vertex_shader(in, triangle[j], state.uniform_data);
                 ptr += state.floats_per_vertex;
                 if(j == 2){
                     rasterize_triangle(state, (const data_geometry**) &triangle);
