@@ -153,6 +153,11 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
             float gamma = (0.5f * ((x[0] * y[1] - x[1] * y[0]) + (y[0] - y[1])*i + (x[1] - x[0])*j)) / area_abc;
         
             if(alpha >= 0 && beta >= 0 && gamma >= 0){
+                const float alpha_const = alpha;
+                const float beta_const = beta;
+                const float gamma_const = gamma;
+                
+                
                 for(int k = 0; k < state.floats_per_vertex; ++k){
                     float k_gour;
                     switch(state.interp_rules[k]){
@@ -166,9 +171,9 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
                             k_gour = (alpha / (*in)[0].gl_Position[3]) + (beta / (*in)[1].gl_Position[3]) + (gamma / (*in)[2].gl_Position[3]);
                             
                             
-                            alpha = alpha / (k_gour * (*in)[0].gl_Position[3]);
-                            beta = beta / (k_gour * (*in)[1].gl_Position[3]);
-                            gamma = gamma / (k_gour * (*in)[2].gl_Position[3]);
+                            alpha = alpha_const / (k_gour * (*in)[0].gl_Position[3]);
+                            beta = beta_const / (k_gour * (*in)[1].gl_Position[3]);
+                            gamma = gamma_const / (k_gour * (*in)[2].gl_Position[3]);
                             
                             
                             break;
@@ -185,6 +190,7 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
                 }
                 
                 state.fragment_shader(fragment_data, out_data, state.uniform_data);
+                
                 state.image_color[i + j * state.image_width] = make_pixel(static_cast<int>(out_data.output_color[0] * 255),
                                                                           static_cast<int>(out_data.output_color[1] * 255),
                                                                           static_cast<int>(out_data.output_color[2] * 255));
