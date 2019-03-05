@@ -1,5 +1,6 @@
 #include "driver_state.h"
 #include <cstring>
+#include <cfloat>
 
 driver_state::driver_state()
 {
