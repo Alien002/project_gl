@@ -24,11 +24,12 @@ void initialize_render(driver_state& state, int width, int height)
     
     unsigned long long total_pixel = width * height;           //check, might be okay with unsigned int (pixel)
     state.image_color = new pixel[total_pixel];
+    state.image_depth = new float[total_pixel]
     
     for(size_t i = 0; i < total_pixel; ++i){
         
         state.image_color[i] = make_pixel(0,0,0);
-        
+        state.image_depth[i] = 2;
     }
     
 }
@@ -158,6 +159,9 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
             float beta = (0.5f * ((x[2] * y[0] - x[0] * y[2]) + (y[2] - y[0])*i + (x[0] - x[2])*j)) / area_abc;
             float gamma = (0.5f * ((x[0] * y[1] - x[1] * y[0]) + (y[0] - y[1])*i + (x[1] - x[0])*j)) / area_abc;
         
+            
+            float depth1 = alpha * (*in)[0].gl_Position[2] + beta * (*in)[1].gl_Position[2] + gamma * (*in)[2].gl_Position[2];
+            
             if(alpha >= 0 && beta >= 0 && gamma >= 0){
                 const float alpha_p = alpha;
                 const float beta_p = beta;
@@ -200,10 +204,10 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
                 }
                 
                 state.fragment_shader(fragment_data, out_data, state.uniform_data);
-                
                 state.image_color[i + j * state.image_width] = make_pixel(static_cast<int>(out_data.output_color[0] * 255),
                                                                           static_cast<int>(out_data.output_color[1] * 255),
                                                                           static_cast<int>(out_data.output_color[2] * 255));
+                state.image_depth[i + j * state.image_width] = depth1;
             }
         }
     }
