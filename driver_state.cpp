@@ -209,7 +209,7 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
                 }
                 
                 state.fragment_shader(fragment_data, out_data, state.uniform_data);
-                out_data.output_color = out_data.output_color * 255;
+                //out_data.output_color = out_data.output_color * 255;
 
                 state.image_color[i + j * state.image_width] = make_pixel((out_data.output_color[0] * 255),
                                                                           (out_data.output_color[1] * 255),
