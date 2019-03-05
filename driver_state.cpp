@@ -162,15 +162,15 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
             
             float depth = (alpha * (*in)[0].gl_Position[2]) + (beta * (*in)[1].gl_Position[2]) + (gamma * (*in)[2].gl_Position[2]);
             
-            if(alpha >= 0 && beta >= 0 && gamma >= 0 && depth < state.image_depth[i + j * state.image_width]){
+            if(alpha >= 0 && beta >= 0 && gamma >= 0){
                 const float alpha_p = alpha;
                 const float beta_p = beta;
                 const float gamma_p = gamma;
-                /*
-                if(depth1 > state.image_depth[i + j * state.image_width]){
-                    depth1 = state.image_depth[i + j * state.image_width];
+                
+                if(depth > state.image_depth[i + j * state.image_width]){
+                    continue;
                 }
-                */
+                
                 for(int k = 0; k < state.floats_per_vertex; ++k){
                     float k_gour;
                     switch(state.interp_rules[k]){
