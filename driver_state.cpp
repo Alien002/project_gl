@@ -162,10 +162,10 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
             float depth = (alpha * (*in)[0].gl_Position[2]) + (beta * (*in)[1].gl_Position[2]) + (gamma * (*in)[2].gl_Position[2]);
 
             
-            if(alpha >= 0 && beta >= 0 && gamma >= 0 /*&& depth <= state.image_depth[i + j * state.image_width]*/){
-                const float alpha_p = alpha;
-                const float beta_p = beta;
-                const float gamma_p = gamma;
+            if(alpha >= 0 && beta >= 0 && gamma >= 0 && depth < state.image_depth[i + j * state.image_width]){
+                //const float alpha_p = alpha;
+                //const float beta_p = beta;
+                //const float gamma_p = gamma;
                 
                 /*
                 if(depth > state.image_depth[i + j * state.image_width]){
@@ -183,14 +183,14 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
                             break;
                         case interp_type::smooth:
                             
-                            k_gour = (alpha_p / (*in)[0].gl_Position[3])
-                                        + (beta_p / (*in)[1].gl_Position[3])
-                                        + (gamma_p / (*in)[2].gl_Position[3]);
+                            k_gour = (alpha / (*in)[0].gl_Position[3])
+                                        + (beta / (*in)[1].gl_Position[3])
+                                        + (gamma / (*in)[2].gl_Position[3]);
                             
                             
-                            alpha = alpha_p / (k_gour * (*in)[0].gl_Position[3]);
-                            beta = beta_p / (k_gour * (*in)[1].gl_Position[3]);
-                            gamma = gamma_p / (k_gour * (*in)[2].gl_Position[3]);
+                            alpha = alpha / (k_gour * (*in)[0].gl_Position[3]);
+                            beta = beta / (k_gour * (*in)[1].gl_Position[3]);
+                            gamma = gamma / (k_gour * (*in)[2].gl_Position[3]);
                             
                             //fragment_data.data[k] = alpha + beta + gamma;
                             //break;
