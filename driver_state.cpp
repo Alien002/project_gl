@@ -174,6 +174,7 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
                 
                 for(int k = 0; k < state.floats_per_vertex; ++k){
                     float k_gour;
+                    
                     switch(state.interp_rules[k]){
                         case interp_type::flat:
                             
@@ -192,7 +193,7 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
                             gamma = gamma_p / (k_gour * (*in)[2].gl_Position[3]);
                             
                             //fragment_data.data[k] = alpha + beta + gamma;
-                            //break;
+                            break;
                         case interp_type::noperspective:
                             
                             fragment_data.data[k] = alpha * (*in)[0].data[k]
@@ -208,6 +209,8 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
                 }
                 
                 state.fragment_shader(fragment_data, out_data, state.uniform_data);
+                out_data.output_color = out_data.output_color * 255;
+
                 state.image_color[i + j * state.image_width] = make_pixel((out_data.output_color[0] * 255),
                                                                           (out_data.output_color[1] * 255),
                                                                           (out_data.output_color[2] * 255));
