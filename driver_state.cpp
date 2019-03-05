@@ -52,7 +52,7 @@ void render(driver_state& state, render_type type)
     
     switch (type) {
         case render_type::triangle:
-            std::cout<<"render_type triangle \n";
+            //std::cout<<"render_type triangle \n";
             
             for(size_t i = 0; i < (state.num_vertices/3); ++i) {
                 for(unsigned j = 0; j < 3; ++j){
