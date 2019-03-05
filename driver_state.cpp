@@ -168,7 +168,7 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
                 const float gamma_p = gamma;
                 
                 if(depth1 > state.image_depth[i + j * state.image_width]){
-                    //continue;
+                    depth1 = state.image_depth[i + j * state.image_width];
                 }
                 
                 for(int k = 0; k < state.floats_per_vertex; ++k){
