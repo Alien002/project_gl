@@ -24,7 +24,7 @@ void initialize_render(driver_state& state, int width, int height)
     
     unsigned long long total_pixel = width * height;           //check, might be okay with unsigned int (pixel)
     state.image_color = new pixel[total_pixel];
-    state.image_depth = new float[total_pixel]
+    state.image_depth = new float[total_pixel];
     
     for(size_t i = 0; i < total_pixel; ++i){
         
