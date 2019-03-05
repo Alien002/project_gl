@@ -190,8 +190,8 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
                             beta = beta_p / (k_gour * (*in)[1].gl_Position[3]);
                             gamma = gamma_p / (k_gour * (*in)[2].gl_Position[3]);
                             
-                            fragment_data.data[k] = alpha + beta + gamma;
-                            break;
+                            //fragment_data.data[k] = alpha + beta + gamma;
+                            //break;
                         case interp_type::noperspective:
                             
                             fragment_data.data[k] = alpha * (*in)[0].data[k]
