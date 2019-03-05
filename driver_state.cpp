@@ -169,7 +169,7 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
                 
                 
                 if(depth > state.image_depth[i + j * state.image_width]){
-                    continue;
+                    //continue;
                 }
                 
                 for(int k = 0; k < state.floats_per_vertex; ++k){
@@ -196,9 +196,9 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
                             //break;
                         case interp_type::noperspective:
                             
-                            fragment_data.data[k] = alpha_p * (*in)[0].data[k]
-                                                    + beta_p * (*in)[1].data[k]
-                                                    + gamma_p * (*in)[2].data[k];
+                            fragment_data.data[k] = alpha * (*in)[0].data[k]
+                                                    + beta * (*in)[1].data[k]
+                                                    + gamma * (*in)[2].data[k];
                             
                             break;
                         default:
