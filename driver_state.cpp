@@ -163,15 +163,10 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
             float depth = (alpha * (*in)[0].gl_Position[2]) + (beta * (*in)[1].gl_Position[2]) + (gamma * (*in)[2].gl_Position[2]);
 
             
-            if(alpha >= 0 && beta >= 0 && gamma >= 0 /*&& depth <= state.image_depth[i + j * state.image_width]*/){
+            if(alpha >= 0 && beta >= 0 && gamma >= 0 && depth < state.image_depth[i + j * state.image_width]){
                 const float alpha_p = alpha;
                 const float beta_p = beta;
                 const float gamma_p = gamma;
-                
-                
-                if(depth > state.image_depth[i + j * state.image_width]){
-                    continue;
-                }
                 
                 for(int k = 0; k < state.floats_per_vertex; ++k){
                     float k_gour;
@@ -193,8 +188,6 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
                             beta = beta_p / (k_gour * (*in)[1].gl_Position[3]);
                             gamma = gamma_p / (k_gour * (*in)[2].gl_Position[3]);
                             
-                            //fragment_data.data[k] = alpha + beta + gamma;
-                            //break;
                         case interp_type::noperspective:
                             
                             fragment_data.data[k] = alpha * (*in)[0].data[k]
