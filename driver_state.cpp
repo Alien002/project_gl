@@ -145,7 +145,7 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
     }
     
     //calculates area of the triangle
-    float area_abc = (0.5f * ((x[1]*y[2] - x[2]*y[1]) - (x[0]*y[2] - x[2]*y[0]) - (x[0]*y[1] - x[1]*y[0])));
+    float area_abc = (0.5f * ((x[1]*y[2] - x[2]*y[1]) - (x[0]*y[2] - x[2]*y[0]) + (x[0]*y[1] - x[1]*y[0])));
     
     auto *data = new float[MAX_FLOATS_PER_VERTEX];
     data_fragment fragment_data{data};
@@ -183,7 +183,7 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
                             beta = beta_p / (k_gour * (*in)[1].gl_Position[3]);
                             gamma = gamma_p / (k_gour * (*in)[2].gl_Position[3]);
                             
-                            //fragment_data.data[k] = alpha + beta + gamma;
+                            fragment_data.data[k] = alpha + beta + gamma;
                             break;
                         case interp_type::noperspective:
                             
