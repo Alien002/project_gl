@@ -131,6 +131,7 @@ void render(driver_state& state, render_type type)
              XYZ             XYZ XYZ ...
              
              */
+            std::cout<<"!!render type fan!!\n";
             
             triangle[0].data = ptr; //triangle[0].data set outside for loop, wont change values
             
@@ -141,9 +142,12 @@ void render(driver_state& state, render_type type)
                         ptr += state.floats_per_vertex;
 
                         triangle[j].data = ptr;  //ptr = 1,2
-                        
+                        std::cout<<"!!render type fan i = 0!!\n";
+
                     }
                     else{ //i > 0
+                        std::cout<<"!!render type fan!! i = else\n";
+
                         if(j == 1){  //j = 0,1
                             triangle[j].data = triangle[j+1].data;  //new j0 = old j1
                         }
