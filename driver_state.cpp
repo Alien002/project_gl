@@ -51,16 +51,26 @@ void render(driver_state& state, render_type type)
     data_vertex in{};
     
     
+    float *v1_fan = ptr;
+
     switch (type) {
         case render_type::triangle:
             //std::cout<<"render_type triangle \n";
+            /*
+             XYZ XYZ XYZ
+                         XYZ XYZ XYZ
+                                     XYZ XYZ XYZ ...
+             for every /3
+             */
             
+            //loops after every 3 points
             for(size_t i = 0; i < (state.num_vertices/3); ++i) {
+                //fills the triangle vertex data
                 for(unsigned j = 0; j < 3; ++j){
                     triangle[j].data = ptr;
                     ptr += state.floats_per_vertex;
                 }
-                
+                //calls the vertx shader to shade in each vertex in the triangle
                 for(unsigned k = 0; k < 3; ++k){
                     in.data = triangle[k].data;
                     state.vertex_shader(in, triangle[k], state.uniform_data);
@@ -70,11 +80,95 @@ void render(driver_state& state, render_type type)
             }
 
             break;
-        case render_type::indexed:
+        case render_type::strip:
+            /* j0  j1  j2
+                XYZ XYZ XYZ     i = 0
+                    j0  j1  j2
+                    XYZ XYZ XYZ     i = 1
+                        j0  j1 j2
+                        XYZ XYZ XYZ ...
+             
+             for every /2?
+             */
+            //should increment every 1 time?
+            float *v2_shared;
+            float *v3_shared;
+            for(size_t i = 0; i < (state.num_vertices/3); ++i) {
+                
+                for(unsigned j = 0; j < 3; ++j){
+                    if(i = 0){
+                        triangle[j].data = ptr;  //ptr = 0,1,2
+                        ptr += state.floats_per_vertex;
+
+                    }
+                    else{ //i > 0
+                        if(j < 2){  //j = 0,1
+                            triangle[j].data = triangle[j+1].data;  //new j0 = old j1
+                        }
+                        else{   //j = 2
+                            ptr += state.floats_per_vertex;
+                            triangle[j].data = ptr;
+                        }
+                    }
+                }
+
+                for(unsigned k = 0; k < 3; ++k){
+                    in.data = triangle[k].data;
+                    state.vertex_shader(in, triangle[k], state.uniform_data);
+                }
+                
+                rasterize_triangle(state, (const data_geometry**) &triangle);
+            }
+
+            
+            
             break;
         case render_type::fan:
+            /*
+             XYZ XYZ XYZ
+             XYZ     XYZ XYZ
+             XYZ         XYZ XYZ
+             XYZ             XYZ XYZ ...
+             
+             */
+            
+            triangle[0].data = ptr; //triangle[0].data set outside for loop, wont change values
+            
+            for(size_t i = 0; i < (state.num_vertices/3); ++i) {
+                
+                for(unsigned j = 1; j < 3; ++j){
+                    if(i = 0){
+                        ptr += state.floats_per_vertex;
+
+                        triangle[j].data = ptr;  //ptr = 1,2
+                        
+                    }
+                    else{ //i > 0
+                        if(j == 1){  //j = 0,1
+                            triangle[j].data = triangle[j+1].data;  //new j0 = old j1
+                        }
+                        if(j == 2){   //j = 2
+                            ptr += state.floats_per_vertex;
+                            triangle[j].data = ptr;
+                        }
+                    }
+                }
+                
+                for(unsigned k = 0; k < 3; ++k){
+                    in.data = triangle[k].data;
+                    state.vertex_shader(in, triangle[k], state.uniform_data);
+                }
+                
+                rasterize_triangle(state, (const data_geometry**) &triangle);
+            }
+            
+            
             break;
-        case render_type::strip:
+        case render_type::indexed:
+            
+            /*
+             For each indexed, lOOp
+             */
             break;
         default:
             break;
