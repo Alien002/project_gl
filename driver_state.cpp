@@ -51,7 +51,7 @@ void render(driver_state& state, render_type type)
     data_vertex in{};
     
     
-   // float *v1_fan = ptr;
+   float *v1_fan = ptr;
 
     switch (type) {
         case render_type::triangle:
@@ -133,7 +133,7 @@ void render(driver_state& state, render_type type)
              */
             std::cout<<"!!render type fan!!\n";
             
-            triangle[0].data = ptr; //triangle[0].data set outside for loop, wont change values
+            triangle[0].data = v1_fan; //triangle[0].data set outside for loop, wont change values
             
             for(size_t i = 0; i < (state.num_vertices/3); ++i) {
                 std::cout<<"!!render type fan i = " <<i <<"\n";
