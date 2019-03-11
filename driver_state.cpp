@@ -51,7 +51,7 @@ void render(driver_state& state, render_type type)
     data_vertex in{};
     
     
-    float *v1_fan = ptr;
+   // float *v1_fan = ptr;
 
     switch (type) {
         case render_type::triangle:
@@ -91,12 +91,12 @@ void render(driver_state& state, render_type type)
              for every /2?
              */
             //should increment every 1 time?
-            float *v2_shared;
-            float *v3_shared;
+            //float *v2_shared;
+            //float *v3_shared;
             for(size_t i = 0; i < (state.num_vertices/3); ++i) {
                 
                 for(unsigned j = 0; j < 3; ++j){
-                    if(i = 0){
+                    if(i == 0){
                         triangle[j].data = ptr;  //ptr = 0,1,2
                         ptr += state.floats_per_vertex;
 
@@ -137,7 +137,7 @@ void render(driver_state& state, render_type type)
             for(size_t i = 0; i < (state.num_vertices/3); ++i) {
                 
                 for(unsigned j = 1; j < 3; ++j){
-                    if(i = 0){
+                    if(i == 0){
                         ptr += state.floats_per_vertex;
 
                         triangle[j].data = ptr;  //ptr = 1,2
