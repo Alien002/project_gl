@@ -142,15 +142,17 @@ void render(driver_state& state, render_type type)
                         ptr += state.floats_per_vertex;
 
                         triangle[j].data = ptr;  //ptr = 1,2
-                        std::cout<<"!!render type fan i = 0!!\n";
+                        std::cout<<"!!render type fan i = " <<i <<"\n";
 
                     }
                     else{ //i > 0
-                        std::cout<<"!!render type fan!! i = else\n";
+                        std::cout<<"!!render type fan i = " <<i <<"\n";
+                        std::cout<<"!!render type fan j = " <<j <<"\n";
 
                         if(j == 1){  //j = 0,1
                             triangle[j].data = triangle[j+1].data;  //new j0 = old j1
                         }
+                        
                         if(j == 2){   //j = 2
                             ptr += state.floats_per_vertex;
                             triangle[j].data = ptr;
