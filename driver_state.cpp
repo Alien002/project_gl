@@ -136,18 +136,19 @@ void render(driver_state& state, render_type type)
             triangle[0].data = ptr; //triangle[0].data set outside for loop, wont change values
             
             for(size_t i = 0; i < (state.num_vertices/3); ++i) {
-                
+                std::cout<<"!!render type fan i = " <<i <<"\n";
+
                 for(unsigned j = 1; j < 3; ++j){
+                    std::cout<<"!!render type fan j = " <<j <<"\n";
+
                     if(i == 0){
+                        
                         ptr += state.floats_per_vertex;
 
                         triangle[j].data = ptr;  //ptr = 1,2
-                        std::cout<<"!!render type fan i = " <<i <<"\n";
 
                     }
                     else{ //i > 0
-                        std::cout<<"!!render type fan i = " <<i <<"\n";
-                        std::cout<<"!!render type fan j = " <<j <<"\n";
 
                         if(j == 1){  //j = 0,1
                             triangle[j].data = triangle[j+1].data;  //new j0 = old j1
