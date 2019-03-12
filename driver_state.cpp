@@ -45,7 +45,7 @@ void initialize_render(driver_state& state, int width, int height)
 void render(driver_state& state, render_type type)
 {
     //std::cout<<"TODO: implement rendering."<<std::endl;
-    
+    const data_geometry *output[3];
     data_geometry *triangle = new data_geometry[3];
     float *ptr = state.vertex_data;
     data_vertex in{};
@@ -76,7 +76,8 @@ void render(driver_state& state, render_type type)
                     state.vertex_shader(in, triangle[k], state.uniform_data);
                 }
                 
-                rasterize_triangle(state, (const data_geometry**) &triangle);
+                //rasterize_triangle(state, (const data_geometry**) &triangle);
+                clip_triangle(state, (const data_geometry**) &triangle, 0);
             }
 
             break;
@@ -93,31 +94,26 @@ void render(driver_state& state, render_type type)
             //should increment every 1 time?
             //float *v2_shared;
             //float *v3_shared;
+            
+            /*
+             
+             data_geometry *triangle = new data_geometry[3];
+             float *ptr = state.vertex_data;
+             data_vertex in{};
+
+             */
+            
             for(size_t i = 0; i < (state.num_vertices/3); ++i) {
                 
                 for(unsigned j = 0; j < 3; ++j){
-                    if(i == 0){
-                        triangle[j].data = ptr;  //ptr = 0,1,2
-                        ptr += state.floats_per_vertex;
-
-                    }
-                    else{ //i > 0
-                        if(j < 2){  //j = 0,1
-                            triangle[j].data = triangle[j+1].data;  //new j0 = old j1
-                        }
-                        else{   //j = 2
-                            ptr += state.floats_per_vertex;
-                            triangle[j].data = ptr;
-                        }
-                    }
-                }
-
-                for(unsigned k = 0; k < 3; ++k){
-                    in.data = triangle[k].data;
-                    state.vertex_shader(in, triangle[k], state.uniform_data);
-                }
+                    in.data = state.vertex_data[(i + j) * state.floats_per_vertex];
+                    triangle[j].data = in.data;
+                    state.vertex_shader(in, triangle[j], state.uniform_data);
+                    output[j] = &triangle[j];
                 
-                rasterize_triangle(state, (const data_geometry**) &triangle);
+                }
+                clip_triangle(state, (const data_geometry**) &triangle, 0); //maybe output instead of &triangle
+                //rasterize_triangle(state, (const data_geometry**) &triangle);
             }
 
             
@@ -130,43 +126,34 @@ void render(driver_state& state, render_type type)
              XYZ         XYZ XYZ
              XYZ             XYZ XYZ ...
              
+             data_geometry *triangle = new data_geometry[3];
+             float *ptr = state.vertex_data;
+             data_vertex in{};
+
              */
-            std::cout<<"!!render type fan!!\n";
+            //std::cout<<"!!render type fan!!\n";
             
-            triangle[0].data = v1_fan; //triangle[0].data set outside for loop, wont change values
+            int flag;
+            
+            triangle[0].data = ptr; //triangle[0].data set outside for loop, wont change values
             
             for(size_t i = 0; i < (state.num_vertices/3); ++i) {
-                std::cout<<"!!render type fan i = " <<i <<"\n";
-
+                //std::cout<<"!!render type fan i = " <<i <<"\n";
                 for(unsigned j = 1; j < 3; ++j){
-                    std::cout<<"!!render type fan j = " <<j <<"\n";
-
-                    if(i == 0){
-                        
-                        ptr += state.floats_per_vertex;
-
-                        triangle[j].data = ptr;  //ptr = 1,2
-
+                    flag = i + j;
+                    if (j == 0){
+                        flag = 0;
                     }
-                    else{ //i > 0
+                    in.data = state.vertex_data[flag * state.floats_per_vertex];
+                    triangle[j].data = in.data;
+                    state.vertex_shader(in, triangle[j], state.uniform_data);
+                    output[j] = &triangle[j];
 
-                        if(j == 1){  //j = 0,1
-                            triangle[j].data = triangle[j+1].data;  //new j0 = old j1
-                        }
-                        
-                        if(j == 2){   //j = 2
-                            ptr += state.floats_per_vertex;
-                            triangle[j].data = ptr;
-                        }
-                    }
                 }
                 
-                for(unsigned k = 0; k < 3; ++k){
-                    in.data = triangle[k].data;
-                    state.vertex_shader(in, triangle[k], state.uniform_data);
-                }
-                
-                rasterize_triangle(state, (const data_geometry**) &triangle);
+                //rasterize_triangle(state, (const data_geometry**) &triangle);
+                clip_triangle(state, (const data_geometry**) &triangle, 0); //maybe output instead of &triangle
+
             }
             
             
