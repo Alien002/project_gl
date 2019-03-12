@@ -384,25 +384,25 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
                     switch(state.interp_rules[k]){
                         case interp_type::flat:
                             
-                            fragment_data.data[k] = (*in)[0].data[k];
+                            fragment_data.data[k] = in[0]->data[k];
                             
                             break;
                         case interp_type::smooth:
                             
-                            k_gour = (alpha_p / (*in)[0].gl_Position[3])
-                            + (beta_p / (*in)[1].gl_Position[3])
-                            + (gamma_p / (*in)[2].gl_Position[3]);
+                            k_gour = (alpha_p / in[0]->.gl_Position[3])
+                            + (beta_p / in[1]->gl_Position[3])
+                            + (gamma_p / in[2]->gl_Position[3]);
                             
                             
-                            alpha = alpha_p / (k_gour * (*in)[0].gl_Position[3]);
-                            beta = beta_p / (k_gour * (*in)[1].gl_Position[3]);
-                            gamma = gamma_p / (k_gour * (*in)[2].gl_Position[3]);
+                            alpha = alpha_p / k_gour / (in[0]->gl_Position[3]);
+                            beta = beta_p / k_gour / (in[1]->gl_Position[3]);
+                            gamma = gamma_p / k_gour / (in[2]->gl_Position[3]);
                             
                         case interp_type::noperspective:
                             
-                            fragment_data.data[k] = alpha * (*in)[0].data[k]
-                            + beta * (*in)[1].data[k]
-                            + gamma * (*in)[2].data[k];
+                            fragment_data.data[k] = alpha * in[0]->data[k]
+                            + beta * in[1]->data[k]
+                            + gamma * in[2]->data[k];
                             
                             break;
                         default:
