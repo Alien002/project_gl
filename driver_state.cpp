@@ -197,7 +197,7 @@ void clip_triangle(driver_state& state, const data_geometry* in[3],int face)
     data_geometry d1[3], d2[3];
     
     float a1, b1, b2;
-    vec3 p1, p2;
+    vec4 p1, p2;
     
     if(a[2]< -a[3] && b[2] < -b[3] && c[2] < -c[3]){
         return;
