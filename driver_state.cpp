@@ -56,28 +56,21 @@ void render(driver_state& state, render_type type)
     
     switch (type) {
         case render_type::triangle:{
-            //std::cout<<"render_type triangle \n";
-            /*
-             XYZ XYZ XYZ
-             XYZ XYZ XYZ
-             XYZ XYZ XYZ ...
-             for every /3
-             */
-            
-            //loops after every 3 points
-            for(size_t i = 0; i < (state.num_vertices/3); ++i) {
+            for(size_t i = 0; i < state.num_vertices; i += 3) {
                 //fills the triangle vertex data
                 data_geometry** triangle = new data_geometry*[3];
+                
                 for(unsigned j = 0; j < 3; ++j){
                     triangle[j] = new data_geometry;
                     data_vertex vertex;
                     vertex.data = new float[MAX_FLOATS_PER_VERTEX];
                     triangle[j] -> data = new float[MAX_FLOATS_PER_VERTEX];
+                    
                     for(unsigned k = 0; k < state.floats_per_vertex; ++k){
                         vertex.data[k] = state.vertex_data[k+state.floats_per_vertex*(i + j)];
                         triangle[j] -> data[k] = vertex.data[k];
                     }
-                    
+                    state.vertex_shader((const data_vertex)vertex, *triangle[j], state.uniform_data);
                     
                 }
                 clip_triangle(state, (const data_geometry**) triangle, 0);
