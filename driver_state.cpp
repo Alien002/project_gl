@@ -56,6 +56,8 @@ void render(driver_state& state, render_type type)
     
     switch (type) {
         case render_type::triangle:{
+            const data_geometry *output[3];
+
             data_geometry *triangle = new data_geometry[3];
             float *ptr = state.vertex_data;
             data_vertex in{};
@@ -90,10 +92,12 @@ void render(driver_state& state, render_type type)
                 for(unsigned k = 0; k < 3; ++k){
                     in.data = triangle[k].data;
                     state.vertex_shader(in, triangle[k], state.uniform_data);
+                    output[k] = &triangle[k];
+
                 }
                 
                 //rasterize_triangle(state, (const data_geometry**) &triangle);
-                clip_triangle(state, (const data_geometry**) triangle, 0);
+                clip_triangle(state, output, 0);
 
             }
             
