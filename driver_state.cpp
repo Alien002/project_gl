@@ -92,7 +92,9 @@ void render(driver_state& state, render_type type)
                     state.vertex_shader(in, triangle[k], state.uniform_data);
                 }
                 
-                clip_triangle(state, (const data_geometry**) triangle, 0);
+                rasterize_triangle(state, (const data_geometry**) &triangle);
+                //clip_triangle(state, (const data_geometry**) triangle, 0);
+
             }
             
             
