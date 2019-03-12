@@ -79,10 +79,10 @@ void render(driver_state& state, render_type type)
             break;
         case render_type::strip:{
             const data_geometry *output[3];
-            data_geometry *triangle = new data_geometry[3];
+            data_geometry triangle[3];
             data_vertex vertex[3];
             
-            for(size_t i = 0; i < (state.num_vertices/3); ++i) {
+            for(size_t i = 0; i < state.num_vertices - 2; ++i) {
                 
                 for(unsigned j = 0; j < 3; ++j){
                     vertex[j].data = &state.vertex_data[(i + j) * state.floats_per_vertex];
@@ -107,14 +107,14 @@ void render(driver_state& state, render_type type)
              */
             //std::cout<<"!!render type fan!!\n";
             const data_geometry *output[3];
-            data_geometry *triangle = new data_geometry[3];
+            data_geometry triangle[3];
             data_vertex vertex[3];
             
             int flag;
             
             // triangle[0].data = ptr; //triangle[0].data set outside for loop, wont change values
             
-            for(size_t i = 0; i < (state.num_vertices/3); ++i) {
+            for(size_t i = 0; i < state.num_vertices; ++i) {
                 //std::cout<<"!!render type fan i = " <<i <<"\n";
                 for(unsigned j = 1; j < 3; ++j){
                     flag = i + j;
