@@ -316,120 +316,116 @@ void clip_triangle(driver_state& state, const data_geometry* in[3],int face)
 void rasterize_triangle(driver_state& state, const data_geometry* in[3])
 {
     //std::cout<<"TODO: implement rasterization"<<std::endl;
+    //i = w/2 * x + w/2 - 1/2
+    //j = h/2 * y + h/2 - 1/2
+    int x[3], y[3];
     
-    int image_index;
-    float ax, ay, bx, by, cx, cy;
-    float area_abc, area_pbc, area_apc, area_abp;
-    float alpha, beta, gamma;
-    //int pix[3][2];
-    float minx, miny, maxx, maxy;
-    float alpha_per, beta_per, gamma_per;
-    
-    // for (int k = 0; k < 3; k++) {
-    //     pix[k][0] = (state.image_width/2.0) * in[k]->gl_Position[0]/in[k]->gl_Position[3] + state.image_width/2.0 - 0.5;
-    //     pix[k][1] = (state.image_height/2.0) * in[k]->gl_Position[1]/in[k]->gl_Position[3] + state.image_height/2.0 - 0.5;
-    //     //image_index = pix[k][0] + pix[k][1] * state.image_width;
-    // }
-    
-    // ax = pix[0][0];
-    // ay = pix[0][1];
-    
-    // bx = pix[1][0];
-    // by = pix[1][1];
-    
-    // cx = pix[2][0];
-    // cy = pix[2][1];
-    
-    //using brute force now >______>
-    ax = (state.image_width/2.0) * (in[0]->gl_Position[0]/in[0]->gl_Position[3]) + (state.image_width/2.0) - (0.5);
-    ay = (state.image_height/2.0) * (in[0]->gl_Position[1]/in[0]->gl_Position[3]) + (state.image_height/2.0) - (0.5);
-    
-    bx = (state.image_width/2.0) * (in[1]->gl_Position[0]/in[1]->gl_Position[3]) + (state.image_width/2.0) - (0.5);
-    by = (state.image_height/2.0) * (in[1]->gl_Position[1]/in[1]->gl_Position[3]) + (state.image_height/2.0) - (0.5);
-    
-    cx = (state.image_width/2.0) * (in[2]->gl_Position[0]/in[2]->gl_Position[3]) + (state.image_width/2.0) - (0.5);
-    cy = (state.image_height/2.0) * (in[2]->gl_Position[1]/in[2]->gl_Position[3]) + (state.image_height/2.0) - (0.5);
-    
-    minx = std::min(ax, std::min(bx, cx));
-    miny = std::min(ay, std::min(by, cy));
-    maxx = std::max(ax, std::max(bx, cx));
-    maxy = std::max(ay, std::max(by, cy));
-    
-    area_abc = 0.5 * ((bx * cy - cx * by) - (ax * cy - cx * ay) + (ax * by - bx * ay));
-    
-    if (minx < 0) {
-        minx = 0;
+    //Calculats i & j coordinates in NDC for vertices
+    for(unsigned int a = 0; a < 3; ++a){
+        int i = static_cast<int>((state.image_width / 2.0f)
+                                 * (*in)[a].gl_Position[0]/(*in)[a].gl_Position[3]
+                                 + ((state.image_width / 2.0f) - 0.5f));
+        int j = static_cast<int>((state.image_height / 2.0f)
+                                 * (*in)[a].gl_Position[1]/(*in)[a].gl_Position[3]
+                                 + ((state.image_height / 2.0f) - 0.5f));
+        x[a] = i;
+        y[a] = j;
+        
+        //state.image_color[i + j * state.image_width] = make_pixel(255, 255, 255);
+        
     }
     
-    if (miny < 0) {
-        miny = 0;
+    //finds the min/max of triangle
+    int min_x = std::min(std::min(x[0], x[1]), x[2]);
+    int max_x = std::max(std::max(x[0], x[1]), x[2]);
+    int min_y = std::min(std::min(y[0], y[1]), y[2]);
+    int max_y = std::max(std::max(y[0], y[1]), y[2]);
+    
+    
+    //Makes sure triangle is within pixel grid
+    if(min_x < 0){
+        min_x = 0;
+    }
+    if(min_y < 0){
+        min_y = 0;
+    }
+    if(max_x > state.image_width){
+        max_x = state.image_width - 1;
+    }
+    if(max_y > state.image_height){
+        max_y = state.image_height - 1;
     }
     
-    if (maxx > state.image_width) {
-        maxx = state.image_width;
-    }
+    //calculates area of the triangle
+    float area_abc = (0.5f * ((x[1]*y[2] - x[2]*y[1]) - (x[0]*y[2] - x[2]*y[0]) + (x[0]*y[1] - x[1]*y[0])));
     
-    if (maxy > state.image_height) {
-        maxy = state.image_height;
-    }
+    auto *data = new float[MAX_FLOATS_PER_VERTEX];
+    data_fragment fragment_data{data};
+    data_output out_data;
     
-    for (int j = miny; j < maxy; j++) {
-        for (int i = minx; i < maxx; i++) {
-            image_index = i + j * state.image_width;
-            area_pbc = 0.5 * ((bx * cy - cx * by) - (i * cy - j * cx) + (i * by - j * bx));
-            area_apc = 0.5 * ((i * cy - j * cx) - (ax * cy - cx * ay) + (j * ax - i * ay));
-            area_abp = 0.5 * ((j * bx - i * by) - (j * ax - i * ay) + (ax * by - bx * ay));
+    for(int j = min_y; j < max_y; ++j){
+        for(int i = min_x; i < max_x; ++i){
             
-            alpha = area_pbc/area_abc;
-            beta = area_apc/area_abc;
-            gamma = area_abp/area_abc;
+            float alpha = (0.5f * ((x[1] * y[2] - x[2] * y[1]) + (y[1] - y[2])*i + (x[2] - x[1])*j)) / area_abc;
+            float beta = (0.5f * ((x[2] * y[0] - x[0] * y[2]) + (y[2] - y[0])*i + (x[0] - x[2])*j)) / area_abc;
+            float gamma = (0.5f * ((x[0] * y[1] - x[1] * y[0]) + (y[0] - y[1])*i + (x[1] - x[0])*j)) / area_abc;
             
-            if (alpha >= 0 && beta >= 0 && gamma >= 0) {
-                //image_index = i + j * state.image_width;
-                //auto *data = new float[MAX_FLOATS_PER_VERTEX];
-                data_fragment frag; //{data};
-                frag.data = new float[MAX_FLOATS_PER_VERTEX];
-                data_output output;
-                //std::cout << in[0]->gl_Position[2] << " " << in[1]->gl_Position[2] << " " << in[2]->gl_Position[2] << std::endl;
-                //z buffering
-                float depth1 = alpha * in[0]->gl_Position[2]/in[0]->gl_Position[3] + beta * in[1]->gl_Position[2]/in[1]->gl_Position[3] + gamma * in[2]->gl_Position[2]/in[2]->gl_Position[3];
+            float depth = (alpha * (*in)[0].gl_Position[2]) + (beta * (*in)[1].gl_Position[2]) + (gamma * (*in)[2].gl_Position[2]);
+            
+            
+            if(alpha >= 0 && beta >= 0 && gamma >= 0 && depth < state.image_depth[i + j * state.image_width]){
+                const float alpha_p = alpha;
+                const float beta_p = beta;
+                const float gamma_p = gamma;
                 
-                if (state.image_depth[image_index] > depth1) {
-                    for (int k = 0; k < state.floats_per_vertex; k++) {
-                        float k_gour;
-                        switch (state.interp_rules[k]) {
-                            case interp_type::flat:
-                                frag.data[k] = in[0]->data[k];
-                                break;
-                                
-                            case interp_type::smooth:
-                                k_gour = (alpha/in[0]->gl_Position[3] + beta/in[1]->gl_Position[3] + gamma/in[2]->gl_Position[3]);
-                                
-                                alpha_per = alpha/k_gour/(in[0]->gl_Position[3]);
-                                beta_per = beta/k_gour/(in[1]->gl_Position[3]);
-                                gamma_per = gamma/k_gour/(in[2]->gl_Position[3]);
-                                
-                                frag.data[k] = alpha_per * in[0]->data[k] + beta_per * in[1]->data[k] + gamma_per * in[2]-> data[k];
-                                break;
-                                
-                            case interp_type::noperspective:
-                                frag.data[k] = alpha * in[0]->data[k] + beta * in[1]->data[k] + gamma * in[2]->data[k];
-                                
-                                break;
-                                
-                            default:
-                                break;
-                        }
+                for(int k = 0; k < state.floats_per_vertex; ++k){
+                    float k_gour;
+                    
+                    switch(state.interp_rules[k]){
+                        case interp_type::flat:
+                            
+                            fragment_data.data[k] = (*in)[0].data[k];
+                            
+                            break;
+                        case interp_type::smooth:
+                            
+                            k_gour = (alpha_p / (*in)[0].gl_Position[3])
+                            + (beta_p / (*in)[1].gl_Position[3])
+                            + (gamma_p / (*in)[2].gl_Position[3]);
+                            
+                            
+                            alpha = alpha_p / (k_gour * (*in)[0].gl_Position[3]);
+                            beta = beta_p / (k_gour * (*in)[1].gl_Position[3]);
+                            gamma = gamma_p / (k_gour * (*in)[2].gl_Position[3]);
+                            
+                        case interp_type::noperspective:
+                            
+                            fragment_data.data[k] = alpha * (*in)[0].data[k]
+                            + beta * (*in)[1].data[k]
+                            + gamma * (*in)[2].data[k];
+                            
+                            break;
+                        default:
+                            break;
+                            
+                            
                     }
-                    state.fragment_shader(frag, output, state.uniform_data);
-                    output.output_color = output.output_color * 255;
-                    state.image_color[image_index] = make_pixel(output.output_color[0], output.output_color[1], output.output_color[2]);
-                    state.image_depth[image_index] = depth1;
                 }
+                
+                
+                
+                state.fragment_shader(fragment_data, out_data, state.uniform_data);
+                //out_data.output_color = out_data.output_color * 255;
+                
+                state.image_color[i + j * state.image_width] = make_pixel((out_data.output_color[0] * 255),
+                                                                          (out_data.output_color[1] * 255),
+                                                                          (out_data.output_color[2] * 255));
+                state.image_depth[i + j * state.image_width] = depth;
             }
         }
     }
+    //std::cout<<"TODO: implement rasterization"<<std::endl;
+    delete [] data;
 }
-
 
 
