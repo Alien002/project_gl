@@ -30,7 +30,7 @@ void initialize_render(driver_state& state, int width, int height)
     for(size_t i = 0; i < total_pixel; ++i){
         
         state.image_color[i] = make_pixel(0,0,0);
-        state.image_depth[i] = FLT_MAX;
+        state.image_depth[i] = 1;//FLT_MAX;
     }
     
 }
