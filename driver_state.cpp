@@ -106,7 +106,7 @@ void render(driver_state& state, render_type type)
             for(size_t i = 0; i < (state.num_vertices/3); ++i) {
                 
                 for(unsigned j = 0; j < 3; ++j){
-                    in.data = state.vertex_data[(i + j) * state.floats_per_vertex];
+                    in.data = &state.vertex_data[(i + j) * state.floats_per_vertex];
                     triangle[j].data = in.data;
                     state.vertex_shader(in, triangle[j], state.uniform_data);
                     output[j] = &triangle[j];
@@ -144,7 +144,7 @@ void render(driver_state& state, render_type type)
                     if (j == 0){
                         flag = 0;
                     }
-                    in.data = state.vertex_data[flag * state.floats_per_vertex];
+                    in.data = &state.vertex_data[flag * state.floats_per_vertex];
                     triangle[j].data = in.data;
                     state.vertex_shader(in, triangle[j], state.uniform_data);
                     output[j] = &triangle[j];
