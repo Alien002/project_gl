@@ -116,7 +116,7 @@ void render(driver_state& state, render_type type)
             
             for(size_t i = 0; i < state.num_vertices; ++i) {
                 //std::cout<<"!!render type fan i = " <<i <<"\n";
-                for(unsigned j = 1; j < 3; ++j){
+                for(unsigned j = 0; j < 3; ++j){
                     flag = i + j;
                     if (j == 0){
                         flag = 0;
