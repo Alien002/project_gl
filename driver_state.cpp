@@ -330,6 +330,9 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
                                  + (state.image_height / 2.0) - (0.5);
         x[a] = temp_x;
         y[a] = temp_y;
+        std::cout <<"temp_x value: " <<temp_x <<"\n";
+        std::cout <<"temp_y value: " <<temp_y <<"\n";
+
         
         temp_x = 0.0;
         temp_y = 0.0;
