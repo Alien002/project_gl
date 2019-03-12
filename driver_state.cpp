@@ -341,10 +341,10 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
     }
     
     //finds the min/max of triangle
-    float min_x = std::min(std::min(x[0], x[1]), x[2]);
-    float max_x = std::max(std::max(x[0], x[1]), x[2]);
-    float min_y = std::min(std::min(y[0], y[1]), y[2]);
-    float max_y = std::max(std::max(y[0], y[1]), y[2]);
+    float min_x = std::min(x[0], std::min(x[1], x[2]));
+    float max_x = std::max(x[0], std::max(x[1], x[2]));
+    float min_y = std::min(y[0], std::min(y[1], y[2]));
+    float max_y = std::max(y[0], std::max(y[1], y[2]));
     
     
     //Makes sure triangle is within pixel grid
