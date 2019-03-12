@@ -193,6 +193,7 @@ void clip_triangle(driver_state& state, const data_geometry* in[3],int face)
     vec4 c = in[2] -> gl_Position;
     
     const data_geometry *in3[3] = {in[0], in[1], in[2]};
+    
     data geometry d1[3], d2[3];
     
     float a1, b1, b2;
@@ -211,7 +212,7 @@ void clip_triangle(driver_state& state, const data_geometry* in[3],int face)
         
         d1[0].data = new float[state.floats_per_vertex];
         d1[1] = (*in)[1];
-        dl[2] = (*in)[2];
+        d1[2] = (*in)[2];
         
         for(int i = 0; i < state.floats_per_vertex; ++i){
             
@@ -239,7 +240,7 @@ void clip_triangle(driver_state& state, const data_geometry* in[3],int face)
             
         }
         
-        dl[1].gl_Position = p2;
+        d1[1].gl_Position = p2;
         in1[0] = &d1[0];
         in1[1] = &d1[1];
         in1[2] = &d1[2];
