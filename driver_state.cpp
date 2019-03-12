@@ -330,8 +330,8 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
                                  + (state.image_height / 2.0) - (0.5);
         x[a] = temp_x;
         y[a] = temp_y;
-        std::cout <<"temp_x value: " <<temp_x <<"\n";
-        std::cout <<"temp_y value: " <<temp_y <<"\n";
+        //std::cout <<"temp_x value: " <<temp_x <<"\n";
+        //std::cout <<"temp_y value: " <<temp_y <<"\n";
 
         
         temp_x = 0.0;
@@ -355,10 +355,10 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
         min_y = 0;
     }
     if(max_x > state.image_width){
-        max_x = state.image_width - 1;
+        max_x = state.image_width;
     }
     if(max_y > state.image_height){
-        max_y = state.image_height - 1;
+        max_y = state.image_height;
     }
     
     //calculates area of the triangle
@@ -368,8 +368,8 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
     data_fragment fragment_data{data};
     data_output out_data;
     
-    for(int j = min_y; j <= max_y; ++j){
-        for(int i = min_x; i <= max_x; ++i){
+    for(int j = min_y; j < max_y; ++j){
+        for(int i = min_x; i < max_x; ++i){
             
             float alpha = (0.5f * ((x[1] * y[2] - x[2] * y[1]) + (y[1] - y[2])*i + (x[2] - x[1])*j)) / area_abc;
             float beta = (0.5f * ((x[2] * y[0] - x[0] * y[2]) + (y[2] - y[0])*i + (x[0] - x[2])*j)) / area_abc;
