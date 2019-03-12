@@ -376,9 +376,9 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
     for(int j = min_y; j < max_y; ++j){
         for(int i = min_x; i < max_x; ++i){
             
-            float alpha = (0.5f * ((x[1] * y[2] - x[2] * y[1]) + (y[1] - y[2])*i + (x[2] - x[1])*j)) / area_abc;
-            float beta = (0.5f * ((x[2] * y[0] - x[0] * y[2]) + (y[2] - y[0])*i + (x[0] - x[2])*j)) / area_abc;
-            float gamma = (0.5f * ((x[0] * y[1] - x[1] * y[0]) + (y[0] - y[1])*i + (x[1] - x[0])*j)) / area_abc;
+            float alpha = (0.5 * ((x[1] * y[2] - x[2] * y[1]) + (y[1] - y[2])*i + (x[2] - x[1])*j)) / area_abc;
+            float beta = (0.5 * ((x[2] * y[0] - x[0] * y[2]) + (y[2] - y[0])*i + (x[0] - x[2])*j)) / area_abc;
+            float gamma = (0.5 * ((x[0] * y[1] - x[1] * y[0]) + (y[0] - y[1])*i + (x[1] - x[0])*j)) / area_abc;
             
             float depth = (alpha * in[0]->gl_Position[2]/in[0]->gl_Position[3]) + (beta * in[1]->gl_Position[2]/in[1]->gl_Position[3]) + (gamma * in[2]->gl_Position[2]/in[2]->gl_Position[3]);
             
