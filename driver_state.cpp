@@ -179,13 +179,110 @@ void render(driver_state& state, render_type type)
 // simply pass the call on to rasterize_triangle.
 void clip_triangle(driver_state& state, const data_geometry* in[3],int face)
 {
+    /*
     if(face == 6)
     {
         rasterize_triangle(state, in);
         return;
     }
-    std::cout<<"TODO: implement clipping. (The current code passes the triangle through without clipping them.)"<<std::endl;
-    clip_triangle(state,in,face+1);
+    */
+    
+    //std::cout<<"TODO: implement clipping. (The current code passes the triangle through without clipping them.)"<<std::endl;
+    vec4 a = in[0] -> gl_Position;
+    vec4 b = in[1] -> gl_Position;
+    vec4 c = in[2] -> gl_Position;
+    
+    const data_geometry *in3[3] = {in[0], in[1], in[2]};
+    data geometry d1[3], d2[3];
+    
+    float a1, b1, b2;
+    vec3 p1, p2;
+    
+    if(a[2]< -a[3] && b[2] < -b[3] && c[2] < -c[3]){
+        return;
+    }
+    
+    if(a[2]< -a[3] && b[2] >= -b[3] && c[2] >= -c[3]){
+        b1 = (-b[3] - b[2]) / (a[2] + a[3] - b[3] - b[2]);
+        b2 = (-a[3] - a[2]) / (c[2] + c[3] - a[3] - a[2]);
+
+        p1 = b1 * a + (1 - b1) * b;
+        p2 = b2 * c + (1 - b2) * a;
+        
+        d1[0].data = new float[state.floats_per_vertex];
+        d1[1] = (*in)[1];
+        dl[2] = (*in)[2];
+        
+        for(int i = 0; i < state.floats_per_vertex; ++i){
+            
+            switch (state.interp_rules[i]){
+             
+                case interp_type::flat:
+                    
+                    d1[0].data[i] = (*in)[0].data[i];
+                    
+                    break;
+                case interp_type::smooth:
+                    
+                    d1[0].data[i] = b2* (*in)[2].data[i] + (1 - b2) * (*in)[0].data[i];
+                    
+                    break;
+                case interp_type::noperspective:
+                    
+                    a1 = b2 * (*in)[2].gl_Position[3] / (b2 * (*in)[2].gl_Position[3] + (1 - b2) * (*in)[0].gl_Position[3]);
+                    d1[0].data[i] = a1 * (*in)[2].data[i] + (1 - a1) * (*in)[0].data[i];
+                    break;
+                
+                default:
+                    break;
+            }
+            
+        }
+        
+        dl[1].gl_Position = p2;
+        in1[0] = &d1[0];
+        in1[1] = &d1[1];
+        in1[2] = &d1[2];
+        
+        clip_triangle(state,in1,face + 1);
+        
+        d2.data = new float[state.floats_per_vertex];
+        d2[2] = (*in)[2];
+    
+        for(int j = 0; j < state.floats_per_vertex; ++j){
+            
+            switch (state.interp_rules[j]){
+                    
+                case interp_type::flat:
+                    
+                    d2[0].data[j] = (*in)[0].data[j];
+                    
+                    break;
+                case interp_type::smooth:
+                    
+                    d2[0].data[j] = b1 * (*in)[0].data[j] + (1 - b1) * (*in)[1].data[j];
+                    
+                    break;
+                case interp_type::noperspective:
+                    
+                    a1 = b1 * (*in)[0].gl_Position[3] / (b1 * (*in)[0].gl_Position[3] + (1 - b1) * (*in)[1].gl_Position[3]);
+                    d2[0].data[j] = a1 * (*in)[0].data[j] + (1 - a1) * (*in)[1].data[j];
+                    break;
+                    
+                default:
+                    break;
+            }
+            
+        }
+        
+        d2[1].gl_Position = p1;
+        in1[0] = &d2[0];
+        in1[1] = &d1[1];
+        in1[2] = &d1[0];
+        
+        clip_triangle(state, in1, face +1);
+    }
+    
 }
 
 // Rasterize the triangle defined by the three vertices in the "in" array.  This
