@@ -112,7 +112,7 @@ void render(driver_state& state, render_type type)
             for(size_t i = 0; i < (state.num_vertices/3); ++i) {
                 
                 for(unsigned j = 0; j < 3; ++j){
-                    vertex.data = &state.vertex_data[(i + j) * state.floats_per_vertex];
+                    vertex[j].data = &state.vertex_data[(i + j) * state.floats_per_vertex];
                     triangle[j].data = vertex[j].data;
                     state.vertex_shader(vertex[j], triangle[j], state.uniform_data);
                     output[j] = &triangle[j];
@@ -139,7 +139,7 @@ void render(driver_state& state, render_type type)
             
             int flag;
             
-            triangle[0].data = ptr; //triangle[0].data set outside for loop, wont change values
+            // triangle[0].data = ptr; //triangle[0].data set outside for loop, wont change values
             
             for(size_t i = 0; i < (state.num_vertices/3); ++i) {
                 //std::cout<<"!!render type fan i = " <<i <<"\n";
@@ -173,7 +173,7 @@ void render(driver_state& state, render_type type)
         break;
     }
     
-    delete [] triangle;
+    //delete [] triangle;
     
 }
 
