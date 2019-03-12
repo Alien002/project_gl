@@ -194,7 +194,7 @@ void clip_triangle(driver_state& state, const data_geometry* in[3],int face)
     
     const data_geometry *in3[3] = {in[0], in[1], in[2]};
     
-    data geometry d1[3], d2[3];
+    data_geometry d1[3], d2[3];
     
     float a1, b1, b2;
     vec3 p1, p2;
