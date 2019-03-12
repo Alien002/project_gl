@@ -318,14 +318,14 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
     //std::cout<<"TODO: implement rasterization"<<std::endl;
     //i = w/2 * x + w/2 - 1/2
     //j = h/2 * y + h/2 - 1/2
-    int x[3], y[3];
-    
+    float x[3], y[3];
+    float temp_x, temp_y;
     //Calculats i & j coordinates in NDC for vertices
     for(unsigned int a = 0; a < 3; ++a){
-        float temp_x = (state.image_width / 2.0)
+        temp_x = (state.image_width / 2.0)
                                  * (in[a]->gl_Position[0]/in[a]->gl_Position[3])
                                  + ((state.image_width / 2.0) - 0.5);
-        float temp_y = (state.image_height / 2.0)
+        temp_y = (state.image_height / 2.0)
                                  * (in[a]->gl_Position[1]/in[a]->gl_Position[3])
                                  + ((state.image_height / 2.0) - 0.5);
         x[a] = temp_x;
