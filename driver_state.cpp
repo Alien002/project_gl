@@ -389,7 +389,7 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
                             break;
                         case interp_type::smooth:
                             
-                            k_gour = (alpha_p / in[0]->.gl_Position[3])
+                            k_gour = (alpha_p / in[0]->gl_Position[3])
                             + (beta_p / in[1]->gl_Position[3])
                             + (gamma_p / in[2]->gl_Position[3]);
                             
