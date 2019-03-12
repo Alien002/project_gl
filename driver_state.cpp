@@ -324,13 +324,15 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
     for(unsigned int a = 0; a < 3; ++a){
         temp_x = (state.image_width / 2.0)
                                  * (in[a]->gl_Position[0]/in[a]->gl_Position[3])
-                                 + ((state.image_width / 2.0) - 0.5);
+                                 + (state.image_width / 2.0) - (0.5);
         temp_y = (state.image_height / 2.0)
                                  * (in[a]->gl_Position[1]/in[a]->gl_Position[3])
-                                 + ((state.image_height / 2.0) - 0.5);
+                                 + (state.image_height / 2.0) - (0.5);
         x[a] = temp_x;
         y[a] = temp_y;
         
+        temp_x = 0.0;
+        temp_y = 0.0;
         //state.image_color[i + j * state.image_width] = make_pixel(255, 255, 255);
         
     }
