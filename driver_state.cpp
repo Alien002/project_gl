@@ -254,7 +254,7 @@ void clip_triangle(driver_state& state, const data_geometry* in[3],int face)
             
         }
         
-        d1[1].gl_Position = p2;
+        d1[0].gl_Position = p2;
         in3[0] = &d1[0];
         in3[1] = &d1[1];
         in3[2] = &d1[2];
