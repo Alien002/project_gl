@@ -324,7 +324,7 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
     for(unsigned int a = 0; a < 3; ++a){
         float temp_x = (state.image_width / 2.0)
                                  * (in[a]->gl_Position[0]/in[a]->gl_Position[3])
-                                 + ((state.image_width / 2.0) - 0.5s);
+                                 + ((state.image_width / 2.0) - 0.5);
         float temp_y = (state.image_height / 2.0)
                                  * (in[a]->gl_Position[1]/in[a]->gl_Position[3])
                                  + ((state.image_height / 2.0) - 0.5);
