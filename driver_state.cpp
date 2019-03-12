@@ -321,7 +321,7 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
     float x[3], y[3];
     float temp_x, temp_y;
     //Calculats i & j coordinates in NDC for vertices
-    /*
+    
     for(unsigned int a = 0; a < 3; ++a){
         temp_x = (state.image_width / 2.0)
                                  * (in[a]->gl_Position[0]/in[a]->gl_Position[3])
@@ -340,28 +340,7 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
         //state.image_color[i + j * state.image_width] = make_pixel(255, 255, 255);
         
     }
-    */
-    x[0] =(state.image_width / 2.0)
-    * (in[0]->gl_Position[0]/in[0]->gl_Position[3])
-    + (state.image_width / 2.0) - (0.5);
-    x[1] =(state.image_width / 2.0)
-    * (in[1]->gl_Position[0]/in[1]->gl_Position[3])
-    + (state.image_width / 2.0) - (0.5);
-    x[2] =(state.image_width / 2.0)
-    * (in[2]->gl_Position[0]/in[2]->gl_Position[3])
-    + (state.image_width / 2.0) - (0.5);
-    
-    y[0] =(state.image_height / 2.0)
-    * (in[0]->gl_Position[1]/in[0]->gl_Position[3])
-    + (state.image_height / 2.0) - (0.5);
 
-    y[1] =(state.image_height / 2.0)
-    * (in[1]->gl_Position[1]/in[1]->gl_Position[3])
-    + (state.image_height / 2.0) - (0.5);
-
-    y[2] =(state.image_height / 2.0)
-    * (in[2]->gl_Position[1]/in[2]->gl_Position[3])
-    + (state.image_height / 2.0) - (0.5);
 
     
     //finds the min/max of triangle
@@ -401,7 +380,7 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
             float beta = (0.5f * ((x[2] * y[0] - x[0] * y[2]) + (y[2] - y[0])*i + (x[0] - x[2])*j)) / area_abc;
             float gamma = (0.5f * ((x[0] * y[1] - x[1] * y[0]) + (y[0] - y[1])*i + (x[1] - x[0])*j)) / area_abc;
             
-            float depth = (alpha * in[0]->gl_Position[2]) + (beta * in[1]->gl_Position[2]) + (gamma * in[2]->gl_Position[2]);
+            float depth = (alpha * in[0]->gl_Position[2]/in[0]->gl_position[3]) + (beta * in[1]->gl_Position[2]/in[1]->gl_Position[3]) + (gamma * in[2]->gl_Position[2]/in[2]->gl_Position[3]);
             
             
             if(alpha >= 0 && beta >= 0 && gamma >= 0 && depth < state.image_depth[i + j * state.image_width]){
