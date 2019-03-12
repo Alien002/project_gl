@@ -364,9 +364,11 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
     //calculates area of the triangle
     float area_abc = (0.5 * ((x[1]*y[2] - x[2]*y[1]) - (x[0]*y[2] - x[2]*y[0]) + (x[0]*y[1] - x[1]*y[0])));
     
-    float *data = new float[MAX_FLOATS_PER_VERTEX];
-    data_fragment fragment_data{data};
-    data_output out_data;
+    //float *data = new float[MAX_FLOATS_PER_VERTEX];
+    data_fragment fragment_data;
+    fragment_data.data = new float[MAX_FLOATS_PER_VERTEX];
+    
+    data_output output;
     
     for(int j = min_y; j < max_y; ++j){
         for(int i = min_x; i < max_x; ++i){
@@ -419,7 +421,7 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
                 
                 
                 
-                state.fragment_shader(fragment_data, out_data, state.uniform_data);
+                state.fragment_shader(fragment_data, output, state.uniform_data);
                 //out_data.output_color = out_data.output_color * 255;
                 
                 state.image_color[i + j * state.image_width] = make_pixel((out_data.output_color[0] * 255),
