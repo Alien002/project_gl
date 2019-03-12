@@ -199,7 +199,7 @@ void clip_triangle(driver_state& state, const data_geometry* in[3],int face)
     if(a[2] < -a[3] && b[2] < -b[3] && c[2] < -c[3]){
         return;
     }
-    else{
+    
     if(a[2] < -a[3] && b[2] >= -b[3] && c[2] >= -c[3]){
         b1 = (-b[3] - b[2]) / (a[2] + a[3] - b[3] - b[2]);
         b2 = (-a[3] - a[2]) / (c[2] + c[3] - a[3] - a[2]);
@@ -208,8 +208,8 @@ void clip_triangle(driver_state& state, const data_geometry* in[3],int face)
         p2 = b2 * c + (1 - b2) * a;
         
         d1[0].data = new float[state.floats_per_vertex];
-        d1[1] = (*in)[1];
-        d1[2] = (*in)[2];
+        d1[1] = *in[1];
+        d1[2] = *in[2];
         
         for(int i = 0; i < state.floats_per_vertex; ++i){
             
@@ -247,24 +247,24 @@ void clip_triangle(driver_state& state, const data_geometry* in[3],int face)
         d2[0].data = new float[state.floats_per_vertex];
         d2[2] = *in[2];
     
-        for(int j = 0; j < state.floats_per_vertex; ++j){
+        for(int i = 0; i < state.floats_per_vertex; ++i){
             
-            switch (state.interp_rules[j]){
+            switch (state.interp_rules[i]){
                     
                 case interp_type::flat:
                     
-                    d2[0].data[j] = in[0] -> data[j];
+                    d2[0].data[i] = in[0] -> data[i];
                     
                     break;
                 case interp_type::smooth:
                     
-                    d2[0].data[j] = b1 * in[0] -> data[j] + (1 - b1) * in[1] -> data[j];
+                    d2[0].data[i] = b1 * in[0] -> data[i] + (1 - b1) * in[1] -> data[i];
                     
                     break;
                 case interp_type::noperspective:
                     
                     a1 = b1 * in[0] -> gl_Position[3] / (b1 * in[0] -> gl_Position[3] + (1 - b1) * in[1] -> gl_Position[3]);
-                    d2[0].data[j] = a1 * in[0] -> data[j] + (1 - a1) * in[1] -> data[j];
+                    d2[0].data[i] = a1 * in[0] -> data[i] + (1 - a1) * in[1] -> data[i];
                     break;
                     
                 default:
@@ -281,7 +281,6 @@ void clip_triangle(driver_state& state, const data_geometry* in[3],int face)
     }
     
     clip_triangle(state, in3, face + 1);
-    }
 }
 
 // Rasterize the triangle defined by the three vertices in the "in" array.  This
