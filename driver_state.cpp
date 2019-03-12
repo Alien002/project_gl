@@ -321,6 +321,7 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
     float x[3], y[3];
     float temp_x, temp_y;
     //Calculats i & j coordinates in NDC for vertices
+    /*
     for(unsigned int a = 0; a < 3; ++a){
         temp_x = (state.image_width / 2.0)
                                  * (in[a]->gl_Position[0]/in[a]->gl_Position[3])
@@ -339,6 +340,29 @@ void rasterize_triangle(driver_state& state, const data_geometry* in[3])
         //state.image_color[i + j * state.image_width] = make_pixel(255, 255, 255);
         
     }
+    */
+    x[0] =(state.image_width / 2.0)
+    * (in[0]->gl_Position[0]/in[0]->gl_Position[3])
+    + (state.image_width / 2.0) - (0.5);
+    x[1] =(state.image_width / 2.0)
+    * (in[1]->gl_Position[0]/in[1]->gl_Position[3])
+    + (state.image_width / 2.0) - (0.5);
+    x[2] =(state.image_width / 2.0)
+    * (in[2]->gl_Position[0]/in[2]->gl_Position[3])
+    + (state.image_width / 2.0) - (0.5);
+    
+    y[0] =(state.image_height / 2.0)
+    * (in[0]->gl_Position[1]/in[0]->gl_Position[3])
+    + (state.image_height / 2.0) - (0.5);
+
+    y[1] =(state.image_height / 2.0)
+    * (in[1]->gl_Position[1]/in[1]->gl_Position[3])
+    + (state.image_height / 2.0) - (0.5);
+
+    y[2] =(state.image_height / 2.0)
+    * (in[2]->gl_Position[1]/in[2]->gl_Position[3])
+    + (state.image_height / 2.0) - (0.5);
+
     
     //finds the min/max of triangle
     float min_x = std::min(x[0], std::min(x[1], x[2]));
