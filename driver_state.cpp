@@ -52,7 +52,7 @@ void render(driver_state& state, render_type type)
     data_vertex in{};
     */
     
-   float *v1_fan = ptr;
+   //float *v1_fan = ptr;
 
     switch (type) {
         case render_type::triangle:{
@@ -67,7 +67,7 @@ void render(driver_state& state, render_type type)
             //loops after every 3 points
             for(size_t i = 0; i < (state.num_vertices/3); ++i) {
                 //fills the triangle vertex data
-                data_geometry**triangle - new data_geometry*[3];
+                data_geometry** triangle = new data_geometry*[3];
                 for(unsigned j = 0; j < 3; ++j){
                     triangle[j] = new data_geometry;
                     data_vertex vertex;
