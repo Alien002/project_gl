@@ -45,16 +45,17 @@ void initialize_render(driver_state& state, int width, int height)
 void render(driver_state& state, render_type type)
 {
     //std::cout<<"TODO: implement rendering."<<std::endl;
+    /*
     const data_geometry *output[3];
     data_geometry *triangle = new data_geometry[3];
     float *ptr = state.vertex_data;
     data_vertex in{};
-    
+    */
     
    float *v1_fan = ptr;
 
     switch (type) {
-        case render_type::triangle:
+        case render_type::triangle:{
             //std::cout<<"render_type triangle \n";
             /*
              XYZ XYZ XYZ
@@ -66,22 +67,24 @@ void render(driver_state& state, render_type type)
             //loops after every 3 points
             for(size_t i = 0; i < (state.num_vertices/3); ++i) {
                 //fills the triangle vertex data
+                data_geometry**triangle - new data_geometry*[3];
                 for(unsigned j = 0; j < 3; ++j){
-                    triangle[j].data = ptr;
-                    ptr += state.floats_per_vertex;
-                }
-                //calls the vertx shader to shade in each vertex in the triangle
-                for(unsigned k = 0; k < 3; ++k){
-                    in.data = triangle[k].data;
-                    state.vertex_shader(in, triangle[k], state.uniform_data);
-                }
+                    triangle[j] = new data_geometry;
+                    data_vertex vertex;
+                    vertex.data = new float[MAX_FLOATS_PER_VERTEX];
+                    triangle[j] -> data = new float[MAX_FLOATS_PER_VERTEX];
+                    for(unsigned k = 0; k < state.floats_per_vertex; ++k){
+                        vertex.data[k] = state.vertex_data[k+state.floats_per_vertex*(i + j)];
+                        triangle[j] -> data[k] = vertex.data[k];
+                    }
                 
-                //rasterize_triangle(state, (const data_geometry**) &triangle);
-                clip_triangle(state, (const data_geometry**) &triangle, 0);
+                
+                }
+                clip_triangle(state, (const data_geometry**) triangle, 0);
             }
-
-            break;
-        case render_type::strip:
+        }
+        break;
+        case render_type::strip:{
             /* j0  j1  j2
                 XYZ XYZ XYZ     i = 0
                     j0  j1  j2
@@ -102,36 +105,37 @@ void render(driver_state& state, render_type type)
              data_vertex in{};
 
              */
+            const data_geometry *output[3];
+            data_geometry *triangle = new data_geometry[3];
+            data_vertex vertex[3];
             
             for(size_t i = 0; i < (state.num_vertices/3); ++i) {
                 
                 for(unsigned j = 0; j < 3; ++j){
-                    in.data = &state.vertex_data[(i + j) * state.floats_per_vertex];
-                    triangle[j].data = in.data;
-                    state.vertex_shader(in, triangle[j], state.uniform_data);
+                    vertex.data = &state.vertex_data[(i + j) * state.floats_per_vertex];
+                    triangle[j].data = vertex[j].data;
+                    state.vertex_shader(vertex[j], triangle[j], state.uniform_data);
                     output[j] = &triangle[j];
                 
                 }
-                clip_triangle(state, (const data_geometry**) &triangle, 0); //maybe output instead of &triangle
+                clip_triangle(state, output, 0); //maybe output instead of &triangle
                 //rasterize_triangle(state, (const data_geometry**) &triangle);
             }
 
             
-            
-            break;
-        case render_type::fan:
+        }
+        break;
+        case render_type::fan:{
             /*
              XYZ XYZ XYZ
              XYZ     XYZ XYZ
              XYZ         XYZ XYZ
              XYZ             XYZ XYZ ...
-             
-             data_geometry *triangle = new data_geometry[3];
-             float *ptr = state.vertex_data;
-             data_vertex in{};
-
              */
             //std::cout<<"!!render type fan!!\n";
+            const data_geometry *output[3];
+            data_geometry *triangle = new data_geometry[3];
+            data_vertex vertex[3];
             
             int flag;
             
@@ -144,28 +148,29 @@ void render(driver_state& state, render_type type)
                     if (j == 0){
                         flag = 0;
                     }
-                    in.data = &state.vertex_data[flag * state.floats_per_vertex];
-                    triangle[j].data = in.data;
-                    state.vertex_shader(in, triangle[j], state.uniform_data);
+                    vertex[j].data = &state.vertex_data[flag * state.floats_per_vertex];
+                    triangle[j].data = vertex[j].data;
+                    state.vertex_shader(vertex[j], triangle[j], state.uniform_data);
                     output[j] = &triangle[j];
 
                 }
                 
                 //rasterize_triangle(state, (const data_geometry**) &triangle);
-                clip_triangle(state, (const data_geometry**) &triangle, 0); //maybe output instead of &triangle
+                clip_triangle(state, output, 0); //maybe output instead of &triangle
 
             }
             
-            
-            break;
-        case render_type::indexed:
+        }
+        break;
+        case render_type::indexed:{
             
             /*
              For each indexed, lOOp
              */
-            break;
+        }
+        break;
         default:
-            break;
+        break;
     }
     
     delete [] triangle;
@@ -281,7 +286,7 @@ void clip_triangle(driver_state& state, const data_geometry* in[3],int face)
         in3[1] = &d1[1];
         in3[2] = &d1[0];
         
-        clip_triangle(state, in3, face +1);
+        clip_triangle(state, in3, face + 1);
     }
     
 }
